@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "name": "Blink10",
+      "folder": "blink10",
+      "password": "1234",
+      "description": "Basic LED"
+    },
+    {
+      "name": "Blinkserial",
+      "folder": "Blinkserial",
+      "password": "5678",
+      "description": "blinkserial"
+    }
+  ]
+}
