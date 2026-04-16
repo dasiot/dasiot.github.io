@@ -3,96 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My IoT Projects</title>
-
+<title>Sapan Das — IoT Projects</title>
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;color:#c9d1d9;padding-bottom:48px}
 
-body{
-    font-family: Arial, sans-serif;
-    background:#111;
-    color:#eee;
-    text-align:center;
-    margin:0;
-}
+/* ── TOP BAR ── */
+.topbar{background:#161b22;border-bottom:1px solid #21262d;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:32px;height:32px;background:#00bcd4;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.logo-icon svg{width:18px;height:18px;stroke:#0d1117;fill:none;stroke-width:2}
+.logo-text{font-size:15px;font-weight:500;color:#e6edf3;letter-spacing:0.5px}
+.logo-sub{font-size:11px;color:#8b949e;margin-top:1px}
+.ide-btn{background:#00bcd4;color:#0d1117;border:none;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background 0.15s}
+.ide-btn:hover{background:#26c6da}
+.ide-btn svg{width:14px;height:14px;stroke:#0d1117;fill:none;stroke-width:2}
 
-header{
-    background:#1b1b1b;
-    padding:20px;
-}
+/* ── HERO ── */
+.hero{text-align:center;padding:40px 24px 32px}
+.hero h1{font-size:26px;font-weight:500;color:#e6edf3;letter-spacing:1px}
+.hero p{font-size:13px;color:#8b949e;margin-top:8px;letter-spacing:0.3px}
+.blink{animation:blink 1s step-end infinite;color:#00bcd4}
+@keyframes blink{50%{opacity:0}}
+.section-label{text-align:center;font-size:11px;color:#8b949e;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
 
-h1{
-    color:#00bcd4;
-}
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:0 24px;max-width:960px;margin:0 auto}
 
-.section{
-    padding:40px 20px;
-}
+/* ── CARD ── */
+.card{background:#161b22;border:1px solid #21262d;border-radius:10px;overflow:hidden;transition:border-color 0.2s}
+.card:hover{border-color:#00bcd4}
 
-.project{
-    background:#1e1e1e;
-    margin:auto;
-    padding:20px;
-    max-width:500px;
-    border-radius:8px;
-}
+/* ── DIAGRAM / IMAGE AREA ── */
+.card-diagram{background:#0d1117;border-bottom:1px solid #21262d;height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card-diagram img{width:100%;height:100%;object-fit:cover}
+.card-diagram svg{width:100%;height:100%}
 
-a.button{
-    display:inline-block;
-    margin-top:15px;
-    padding:10px 20px;
-    background:#00bcd4;
-    color:white;
-    text-decoration:none;
-    border-radius:5px;
-}
+/* ── CARD BODY ── */
+.card-body{padding:16px}
+.card-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.tag{font-size:10px;padding:2px 8px;border-radius:4px;background:#1f3a4a;color:#00bcd4;border:1px solid #0d4f66;letter-spacing:0.5px}
+.card-title{font-size:15px;font-weight:500;color:#e6edf3;margin-bottom:6px}
+.card-desc{font-size:12px;color:#8b949e;line-height:1.6;margin-bottom:14px}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap}
 
-a.button:hover{
-    background:#0097a7;
-}
+/* ── BUTTONS ── */
+.btn-primary{background:#00bcd4;color:#0d1117;border:none;padding:6px 14px;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:background 0.15s}
+.btn-primary:hover{background:#26c6da}
+.btn-secondary{background:transparent;color:#8b949e;border:1px solid #30363d;padding:6px 14px;border-radius:5px;font-size:12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:border-color 0.15s,color 0.15s}
+.btn-secondary:hover{border-color:#00bcd4;color:#00bcd4}
+.btn-primary svg,.btn-secondary svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
 
-footer{
-    margin-top:40px;
-    padding:20px;
-    background:#1b1b1b;
-    color:#888;
-}
+/* ── STATUS DOT ── */
+/* dot-active=green | dot-progress=amber | dot-done=gray */
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;animation:pulse 2s ease infinite;margin-left:auto}
+.dot-active{background:#00e676}
+.dot-progress{background:#f0a500}
+.dot-done{background:#8b949e;animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
+/* ── FOOTER ── */
+.footer{text-align:center;margin-top:48px;font-size:11px;color:#484f58;letter-spacing:1px}
+.footer span{color:#00bcd4}
 </style>
 </head>
-
 <body>
 
-<header>
-<h1>My IoT Projects</h1>
-<p>Simple projects built using embedded systems and IoT</p>
-</header>
-
-
-<div class="section">
-
-<h2>Project 1</h2>
-
-<div class="project">
-
-<h3>IoT Smart App</h3>
-
-<p>
-A smart light control application using IoT technology.
-Control devices using WiFi and Bluetooth.
-</p>
-
-<!-- PUT YOUR PROJECT LINK BELOW -->
-
-<a class="button" href="https://github.com/dasiot/smartlight.git">View Project</a>
-<a class="button" href="IDE.html">IDE</a>
+<!-- ════════════════════════════════════════ -->
+<!--         TOP BAR  — do not edit          -->
+<!-- ════════════════════════════════════════ -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="7" cy="10" r="1.5" fill="#0d1117"/><path d="M10 10h7"/><path d="M10 7h4"/></svg>
+    </div>
+    <div>
+      <div class="logo-text">SAPAN DAS</div>
+      <div class="logo-sub">IoT &amp; Embedded Systems</div>
+    </div>
+  </div>
+  <a class="ide-btn" href="IDE.html">
+    <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    Open IDE
+  </a>
 </div>
 
+<!-- ════════════════════════════════════════ -->
+<!--         HERO — do not edit              -->
+<!-- ════════════════════════════════════════ -->
+<div class="hero">
+  <h1>MY PROJECTS<span class="blink">_</span></h1>
+  <p>Embedded systems &middot; IoT &middot; Electronics</p>
+</div>
+
+<div class="section-label">Active Projects</div>
+
+<!--
+  ════════════════════════════════════════════════════════════
+   DEFAULT FALLBACK DIAGRAM (hidden template — do not delete)
+   Shows automatically on any card that has no image set.
+  ════════════════════════════════════════════════════════════
+-->
+<template id="default-diagram">
+  <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+    <rect width="280" height="160" fill="#0d1117"/>
+    <rect x="16" y="55" width="58" height="50" rx="5" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+    <text x="45" y="79" text-anchor="middle" fill="#8b949e" font-size="9" font-family="monospace">MCU</text>
+    <text x="45" y="91" text-anchor="middle" fill="#00bcd4" font-size="8" font-family="monospace">Controller</text>
+    <circle cx="45" cy="55" r="4" fill="#00e676" opacity="0.7"/>
+    <rect x="100" y="38" width="52" height="38" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+    <text x="126" y="60" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">Sensor</text>
+    <rect x="100" y="90" width="52" height="38" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+    <text x="126" y="113" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">Actuator</text>
+    <rect x="186" y="55" width="72" height="50" rx="6" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.8"/>
+    <text x="222" y="77" text-anchor="middle" fill="#00bcd4" font-size="9" font-family="monospace">Cloud /</text>
+    <text x="222" y="90" text-anchor="middle" fill="#00bcd4" font-size="9" font-family="monospace">App</text>
+    <line x1="74" y1="70" x2="100" y2="57" stroke="#00bcd4" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="74" y1="90" x2="100" y2="109" stroke="#00bcd4" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="152" y1="57" x2="186" y2="70" stroke="#444" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="152" y1="109" x2="186" y2="90" stroke="#444" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="16" y="152" fill="#30363d" font-size="8" font-family="monospace">// IoT Embedded System</text>
+  </svg>
+</template>
+
+
+<!--
+
+  ════════════════════════════════════════════════════════════
+   PROJECT CARDS
+  ════════════════════════════════════════════════════════════
+
+  HOW TO ADD A NEW PROJECT
+  ─────────────────────────
+  1. Copy any card block below  CARD 
+  2. Paste it just above the line that says PASTE NEW CARDS HERE
+  3. Edit only the lines marked  ← EDIT
+
+  DIAGRAM OPTIONS
+  ─────────────────────────
+  • Have a photo or diagram image?
+      Set  data-img="your-image.png"  (or a full path / URL)
+      The image fills the card automatically.
+
+  • No image yet?
+      Leave  data-img=""
+      The default IoT symbolic diagram appears automatically.
+
+  STATUS DOT
+  ─────────────────────────
+  dot-active    green   working / live
+  dot-progress  amber   still building
+  dot-done      gray    finished / archived
+  ════════════════════════════════════════════════════════════
+  -->
+
+<div class="grid" id="project-grid">
+
+  <!-- CARD ─────────────────────────────────── -->
+  <div class="card" data-img=""><!-- ← EDIT: e.g. data-img="imgs/smartlight.jpg" -->
+    <div class="card-diagram"></div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag">WiFi</span>       <!-- ← EDIT tags -->
+        <span class="tag">MQTT</span>
+        <span class="tag">ESP8266</span>
+        <span class="dot dot-active"></span><!-- ← EDIT: dot-active / dot-progress / dot-done -->
+      </div>
+      <div class="card-title">IoT Smart Light App</div><!-- ← EDIT -->
+      <div class="card-desc">Control lighting over WiFi and Bluetooth using MQTT protocol. Built on ESP8266 with a mobile-friendly dashboard.</div><!-- ← EDIT -->
+      <div class="card-actions">
+        <a class="btn-primary" href="https://github.com/dasiot/smartlight.git"><!-- ← EDIT link -->
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          Source Code
+        </a>
+        <a class="btn-secondary" href="IDE.html">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Open IDE
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD ─────────────────────────────────── -->
+  <div class="card" data-img=""><!-- ← EDIT: e.g. data-img="imgs/doorlock.jpg" -->
+    <div class="card-diagram"></div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag">ESP32</span>
+        <span class="tag">BLE</span>
+        <span class="tag">Servo</span>
+        <span class="dot dot-progress"></span>
+      </div>
+      <div class="card-title">Smart Door Lock</div>
+      <div class="card-desc">Keypad and BLE-based door lock using ESP32. Unlock via PIN or mobile app over Bluetooth. Servo-controlled deadbolt mechanism.</div>
+      <div class="card-actions">
+        <a class="btn-primary" href="#"><!-- ← EDIT link -->
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          Source Code
+        </a>
+        <a class="btn-secondary" href="IDE.html">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Open IDE
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ PASTE NEW CARDS ABOVE THIS LINE ░░ -->
+
+</div><!-- end .grid -->
+
+
+<!-- ════════════════════════════════════════ -->
+<!--         FOOTER — do not edit            -->
+<!-- ════════════════════════════════════════ -->
+<div class="footer">
+  <p>Created by <span>Sapan Das</span> &nbsp;&bull;&nbsp; IoT &amp; Embedded Systems</p>
 </div>
 
 
-<footer>
-<p>created by sapan das</p>
-</footer>
+<!--
+  AUTO DIAGRAM SCRIPT — do not edit
+  Reads data-img on each card.
+  If set and valid → shows your image.
+  If empty or broken → shows the default symbolic IoT diagram.
+-->
+<script>
+document.querySelectorAll('#project-grid .card').forEach(card => {
+  const imgSrc = (card.getAttribute('data-img') || '').trim();
+  const area   = card.querySelector('.card-diagram');
+  if (imgSrc) {
+    const img  = document.createElement('img');
+    img.alt    = 'Project diagram';
+    img.onerror = () => { img.remove(); injectDefault(area); };
+    img.src    = imgSrc;
+    area.appendChild(img);
+  } else {
+    injectDefault(area);
+  }
+});
+function injectDefault(area) {
+  const tpl = document.getElementById('default-diagram');
+  area.appendChild(tpl.content.cloneNode(true));
+}
+</script>
 
 </body>
 </html>
