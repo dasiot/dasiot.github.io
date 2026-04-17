@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Door Lock — Details</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;color:#c9d1d9;padding-bottom:60px}
+.topbar{background:#161b22;border-bottom:1px solid #21262d;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.back-btn{background:transparent;color:#8b949e;border:1px solid #30363d;padding:7px 16px;border-radius:6px;font-size:12px;font-family:'Courier New',monospace;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:border-color 0.15s,color 0.15s}
+.back-btn:hover{border-color:#00bcd4;color:#00bcd4}
+.back-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.topbar-title{font-size:13px;color:#8b949e;letter-spacing:0.5px}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.ide-btn{background:transparent;color:#8b949e;border:1px solid #30363d;padding:7px 16px;border-radius:6px;font-size:12px;font-family:'Courier New',monospace;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:border-color 0.15s,color 0.15s}
+.ide-btn:hover{border-color:#00bcd4;color:#00bcd4}
+.ide-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.src-btn{background:#00bcd4;color:#0d1117;border:none;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:500;font-family:'Courier New',monospace;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background 0.15s}
+.src-btn:hover{background:#26c6da}
+.src-btn svg{width:13px;height:13px;stroke:#0d1117;fill:none;stroke-width:2}
+.src-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.src-dot-active{background:#00c853;box-shadow:0 0 4px #00c853}
+.src-dot-none{background:#e53935;box-shadow:0 0 4px #e53935}
+.hero{background:#161b22;border-bottom:1px solid #21262d;padding:32px 24px}
+.hero-inner{max-width:860px;margin:0 auto}
+.hero-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tag{font-size:10px;padding:2px 8px;border-radius:4px;background:#1f3a4a;color:#00bcd4;border:1px solid #0d4f66;letter-spacing:0.5px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;animation:pulse 2s ease infinite}
+.dot-active{background:#00e676}
+.dot-progress{background:#f0a500}
+.dot-done{background:#8b949e;animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.status-label{font-size:10px;color:#8b949e}
+.hero h1{font-size:22px;font-weight:500;color:#e6edf3;letter-spacing:0.5px;margin-bottom:8px}
+.hero p{font-size:13px;color:#8b949e;line-height:1.7;max-width:640px}
+.diagram-banner{background:#0d1117;border-bottom:1px solid #21262d;height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.diagram-banner img{width:100%;height:100%;object-fit:cover}
+.diagram-banner svg{width:100%;max-width:860px;height:100%}
+.content{max-width:860px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:600px){.content{grid-template-columns:1fr}}
+.section{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.section.full{grid-column:1/-1}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.section-icon{width:28px;height:28px;border-radius:6px;background:#1f3a4a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-icon svg{width:14px;height:14px;stroke:#00bcd4;fill:none;stroke-width:2}
+.section-title{font-size:12px;color:#00bcd4;letter-spacing:1.5px;text-transform:uppercase}
+.comp-table{width:100%;border-collapse:collapse;font-size:12px}
+.comp-table th{text-align:left;color:#8b949e;font-weight:400;padding:6px 0;border-bottom:1px solid #21262d;font-size:11px;letter-spacing:0.5px}
+.comp-table td{padding:8px 0;border-bottom:1px solid #21262d;color:#c9d1d9;vertical-align:top}
+.comp-table td:first-child{color:#e6edf3;width:42%;padding-right:12px}
+.comp-table tr:last-child td{border-bottom:none}
+.qty{font-size:10px;padding:1px 6px;border-radius:3px;background:#1f3a4a;color:#00bcd4;border:1px solid #0d4f66;margin-left:6px;vertical-align:middle}
+.wire-list{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12px}
+.wire-list li{display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.wire-pin{font-size:10px;padding:1px 7px;border-radius:3px;background:#0d1117;border:1px solid #30363d;color:#00bcd4;white-space:nowrap;margin-top:1px;flex-shrink:0}
+.wire-desc{color:#8b949e}
+.steps{list-style:none;display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid #21262d;font-size:12px;line-height:1.6}
+.steps .step:last-child{border-bottom:none}
+.step-num{min-width:22px;height:22px;border-radius:50%;background:#1f3a4a;border:1px solid #0d4f66;color:#00bcd4;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{color:#c9d1d9}
+.step-text strong{color:#e6edf3;display:block;margin-bottom:2px}
+code{background:#0d1117;border:1px solid #30363d;border-radius:3px;padding:1px 5px;font-size:11px;color:#00bcd4;font-family:'Courier New',monospace}
+.footer{text-align:center;margin-top:16px;font-size:11px;color:#484f58;letter-spacing:1px}
+.footer span{color:#00bcd4}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-btn" href="../iot_projects_page.html">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Projects
+  </a>
+  <span class="topbar-title">Project Detail</span>
+  <div class="topbar-right">
+    <a class="ide-btn" href="../IDE.html"><!-- ← EDIT: your IDE page path -->
+      <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Open IDE
+    </a>
+    <a class="src-btn" href="#"><!-- ← EDIT: GitHub link. If no link yet keep href="#" -->
+      <span class="src-dot src-dot-none"></span><!-- ← EDIT: src-dot-active (green=has link) or src-dot-none (red=no link) -->
+      <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      Source Code
+    </a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-meta">
+      <span class="tag">ESP32</span>
+      <span class="tag">BLE</span>
+      <span class="tag">Servo</span>
+      <span class="tag">Keypad</span>
+      <span class="dot dot-progress"></span>
+      <span class="status-label">In Progress</span>
+    </div>
+    <h1>Smart Door Lock</h1>
+    <p>A BLE and keypad-based smart door lock system built on ESP32. Users can unlock via a 4-digit PIN on a physical keypad or wirelessly through a Bluetooth mobile app. A servo motor controls the deadbolt mechanism.</p>
+  </div>
+</div>
+
+<!--
+  DIAGRAM OPTIONS:
+  A) Have an image? Replace the <svg> block below with:
+       <img src="../imgs/doorlock.jpg" alt="Circuit diagram">
+  B) No image? Leave the SVG as-is.
+-->
+<div class="diagram-banner">
+  <svg viewBox="0 0 860 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="860" height="200" fill="#0d1117"/>
+    <!-- ESP32 -->
+    <rect x="50" y="55" width="110" height="90" rx="6" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+    <text x="105" y="97" text-anchor="middle" fill="#8b949e" font-size="11" font-family="monospace">ESP32</text>
+    <text x="105" y="112" text-anchor="middle" fill="#00bcd4" font-size="10" font-family="monospace">BLE + WiFi</text>
+    <circle cx="105" cy="55" r="5" fill="#f0a500" opacity="0.8"/>
+    <!-- Keypad -->
+    <rect x="240" y="40" width="90" height="80" rx="5" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+    <text x="285" y="68" text-anchor="middle" fill="#8b949e" font-size="10" font-family="monospace">4x4</text>
+    <text x="285" y="82" text-anchor="middle" fill="#00bcd4" font-size="10" font-family="monospace">Keypad</text>
+    <rect x="252" y="90" width="10" height="10" rx="1" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.5"/>
+    <rect x="266" y="90" width="10" height="10" rx="1" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.5"/>
+    <rect x="280" y="90" width="10" height="10" rx="1" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.5"/>
+    <rect x="294" y="90" width="10" height="10" rx="1" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.5"/>
+    <!-- Servo -->
+    <rect x="420" y="65" width="90" height="70" rx="5" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.8"/>
+    <text x="465" y="97" text-anchor="middle" fill="#00bcd4" font-size="11" font-family="monospace">Servo</text>
+    <text x="465" y="112" text-anchor="middle" fill="#00bcd4" font-size="10" font-family="monospace">Motor</text>
+    <!-- Phone -->
+    <rect x="610" y="45" width="60" height="90" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+    <rect x="618" y="60" width="44" height="55" rx="2" fill="#0d1117"/>
+    <text x="640" y="90" text-anchor="middle" fill="#8b949e" font-size="9" font-family="monospace">BLE</text>
+    <text x="640" y="103" text-anchor="middle" fill="#8b949e" font-size="9" font-family="monospace">App</text>
+    <!-- LCD -->
+    <rect x="240" y="140" width="90" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1"/>
+    <text x="285" y="164" text-anchor="middle" fill="#8b949e" font-size="10" font-family="monospace">LCD 16x2</text>
+    <!-- Lines -->
+    <line x1="160" y1="90" x2="240" y2="80" stroke="#00bcd4" stroke-width="1" stroke-dasharray="5,4"/>
+    <line x1="160" y1="110" x2="240" y2="155" stroke="#30363d" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="330" y1="80" x2="420" y2="100" stroke="#444" stroke-width="1" stroke-dasharray="5,4"/>
+    <line x1="105" y1="145" x2="105" y2="170" stroke="#f0a500" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="105" y1="170" x2="610" y2="170" stroke="#f0a500" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="610" y1="170" x2="610" y2="135" stroke="#f0a500" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="340" y="165" text-anchor="middle" fill="#30363d" font-size="8" font-family="monospace">BLE</text>
+    <text x="20" y="190" fill="#30363d" font-size="9" font-family="monospace">// Smart Door Lock System — Circuit Overview</text>
+  </svg>
+</div>
+
+<div class="content">
+
+  <!-- COMPONENTS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+      <span class="section-title">Components</span>
+    </div>
+    <table class="comp-table">
+      <tr><th>Component</th><th>Purpose</th></tr>
+      <tr><td>ESP32 DevKit<span class="qty">×1</span></td><td>Main controller with BLE + WiFi</td></tr>
+      <tr><td>4×4 Keypad<span class="qty">×1</span></td><td>PIN entry for unlock</td></tr>
+      <tr><td>SG90 Servo Motor<span class="qty">×1</span></td><td>Controls deadbolt mechanism</td></tr>
+      <tr><td>LCD 16×2 (I2C)<span class="qty">×1</span></td><td>Status display (locked/unlocked)</td></tr>
+      <tr><td>5V Power Supply<span class="qty">×1</span></td><td>Powers ESP32 + servo</td></tr>
+      <tr><td>Buzzer<span class="qty">×1</span></td><td>Wrong PIN alert</td></tr>
+      <tr><td>Jumper Wires</td><td>Connections</td></tr>
+    </table>
+  </div>
+
+  <!-- WIRING -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></div>
+      <span class="section-title">Wiring</span>
+    </div>
+    <ul class="wire-list">
+      <li><span class="wire-pin">GPIO 13</span><span class="wire-desc">ESP32 → Servo signal wire (orange)</span></li>
+      <li><span class="wire-pin">GPIO 12-19</span><span class="wire-desc">ESP32 → Keypad rows &amp; columns (R1–R4, C1–C4)</span></li>
+      <li><span class="wire-pin">SDA/SCL</span><span class="wire-desc">ESP32 GPIO 21/22 → LCD I2C SDA/SCL</span></li>
+      <li><span class="wire-pin">GPIO 25</span><span class="wire-desc">ESP32 → Buzzer positive pin</span></li>
+      <li><span class="wire-pin">VIN</span><span class="wire-desc">5V → Servo VCC &amp; ESP32 VIN</span></li>
+      <li><span class="wire-pin">GND</span><span class="wire-desc">Common GND for all components</span></li>
+    </ul>
+  </div>
+
+  <!-- IDE PROCEDURE -->
+  <div class="section full">
+    <div class="section-header">
+      <div class="section-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <span class="section-title">How to Build in IDE (Arduino)</span>
+    </div>
+    <ol class="steps">
+      <li class="step"><span class="step-num">1</span><span class="step-text"><strong>Install Arduino IDE</strong>Download from arduino.cc. Open <code>File → Preferences</code> and add the ESP32 board URL:<br><code>https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json</code></span></li>
+      <li class="step"><span class="step-num">2</span><span class="step-text"><strong>Install ESP32 Board</strong>Go to <code>Tools → Board → Board Manager</code>, search <code>esp32</code> and install the Espressif package.</span></li>
+      <li class="step"><span class="step-num">3</span><span class="step-text"><strong>Install Required Libraries</strong>In <code>Sketch → Include Library → Manage Libraries</code> install:<br><code>Keypad</code> by Mark Stanley, <code>LiquidCrystal_I2C</code>, and <code>ESP32Servo</code>. BLE is built-in.</span></li>
+      <li class="step"><span class="step-num">4</span><span class="step-text"><strong>Set Your PIN</strong>In the code, set <code>correctPIN = "1234"</code> to your desired unlock PIN. Change <code>serviceUUID</code> if customizing the BLE service.</span></li>
+      <li class="step"><span class="step-num">5</span><span class="step-text"><strong>Select Board &amp; Port</strong>Go to <code>Tools → Board</code> and select <code>ESP32 Dev Module</code>. Select the correct port under <code>Tools → Port</code>.</span></li>
+      <li class="step"><span class="step-num">6</span><span class="step-text"><strong>Upload the Code</strong>Hold the BOOT button on the ESP32 while clicking Upload if it does not start automatically. Wait for "Done uploading."</span></li>
+      <li class="step"><span class="step-num">7</span><span class="step-text"><strong>Test Keypad &amp; BLE</strong>Enter your PIN on the keypad — the servo should rotate to unlock. For BLE, install <code>nRF Connect</code> on your phone, find the device named <code>SmartLock</code>, and send <code>1234</code> to the characteristic to unlock remotely.</span></li>
+    </ol>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Created by <span>Sapan Das</span> &nbsp;&bull;&nbsp; IoT &amp; Embedded Systems</p>
+</div>
+
+</body>
+</html>

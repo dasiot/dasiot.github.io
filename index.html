@@ -31,8 +31,9 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:0 24px;max-width:960px;margin:0 auto}
 
 /* ── CARD ── */
-.card{background:#161b22;border:1px solid #21262d;border-radius:10px;overflow:hidden;transition:border-color 0.2s}
-.card:hover{border-color:#00bcd4}
+/* The whole card is a link */
+.card{background:#161b22;border:1px solid #21262d;border-radius:10px;overflow:hidden;transition:border-color 0.2s,transform 0.15s;text-decoration:none;display:block;color:inherit;cursor:pointer}
+.card:hover{border-color:#00bcd4;transform:translateY(-2px)}
 
 /* ── DIAGRAM / IMAGE AREA ── */
 .card-diagram{background:#0d1117;border-bottom:1px solid #21262d;height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -50,12 +51,11 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
 /* ── BUTTONS ── */
 .btn-primary{background:#00bcd4;color:#0d1117;border:none;padding:6px 14px;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:background 0.15s}
 .btn-primary:hover{background:#26c6da}
-.btn-secondary{background:transparent;color:#8b949e;border:1px solid #30363d;padding:6px 14px;border-radius:5px;font-size:12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:border-color 0.15s,color 0.15s}
-.btn-secondary:hover{border-color:#00bcd4;color:#00bcd4}
-.btn-primary svg,.btn-secondary svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+.btn-primary svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+.view-hint{font-size:11px;color:#484f58;display:flex;align-items:center;gap:4px;margin-left:auto}
+.view-hint svg{width:11px;height:11px;stroke:#484f58;fill:none;stroke-width:2}
 
 /* ── STATUS DOT ── */
-/* dot-active=green | dot-progress=amber | dot-done=gray */
 .dot{width:7px;height:7px;border-radius:50%;display:inline-block;animation:pulse 2s ease infinite;margin-left:auto}
 .dot-active{background:#00e676}
 .dot-progress{background:#f0a500}
@@ -99,10 +99,8 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
 <div class="section-label">Active Projects</div>
 
 <!--
-  ════════════════════════════════════════════════════════════
-   DEFAULT FALLBACK DIAGRAM (hidden template — do not delete)
-   Shows automatically on any card that has no image set.
-  ════════════════════════════════════════════════════════════
+  DEFAULT FALLBACK DIAGRAM (hidden template — do not delete)
+  Shows automatically on any card that has no image set.
 -->
 <template id="default-diagram">
   <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
@@ -128,26 +126,32 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
 
 
 <!--
-
   ════════════════════════════════════════════════════════════
    PROJECT CARDS
   ════════════════════════════════════════════════════════════
 
   HOW TO ADD A NEW PROJECT
   ─────────────────────────
-  1. Copy any card block below  CARD 
-  2. Paste it just above the line that says PASTE NEW CARDS HERE
-  3. Edit only the lines marked  ← EDIT
+  1. Create a detail page in the  projects_detail/  folder.
+     (Copy an existing one and edit it.)
+  2. Copy any card block below and paste it above
+     the  PASTE NEW CARDS HERE  line.
+  3. Edit the fields marked  ← EDIT
+
+  CARD FIELDS TO EDIT
+  ─────────────────────────
+  href on <a class="card">         → path to your detail page
+  data-img=""                      → path to diagram image (leave "" for default)
+  .tag spans                       → your tech tags
+  .dot class                       → dot-active / dot-progress / dot-done
+  .card-title                      → project name
+  .card-desc                       → short description
+  href on .btn-primary             → path to your detail page (same as card href)
 
   DIAGRAM OPTIONS
   ─────────────────────────
-  • Have a photo or diagram image?
-      Set  data-img="your-image.png"  (or a full path / URL)
-      The image fills the card automatically.
-
-  • No image yet?
-      Leave  data-img=""
-      The default IoT symbolic diagram appears automatically.
+  Have an image?   data-img="imgs/myproject.jpg"  → shows your image
+  No image?        data-img=""                    → shows default IoT diagram
 
   STATUS DOT
   ─────────────────────────
@@ -155,37 +159,37 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
   dot-progress  amber   still building
   dot-done      gray    finished / archived
   ════════════════════════════════════════════════════════════
-  -->
+-->
 
 <div class="grid" id="project-grid">
 
   <!-- CARD ─────────────────────────────────── -->
-  <div class="card" data-img=""><!-- ← EDIT: e.g. data-img="imgs/smartlight.jpg" -->
+  <a class="card" href="projects_detail/project1.html" data-img=""><!-- ← EDIT: detail page link & image -->
     <div class="card-diagram"></div>
     <div class="card-body">
       <div class="card-meta">
-        <span class="tag">WiFi</span>       <!-- ← EDIT tags -->
+        <span class="tag">WiFi</span>        <!-- ← EDIT tags -->
         <span class="tag">MQTT</span>
         <span class="tag">ESP8266</span>
-        <span class="dot dot-active"></span><!-- ← EDIT: dot-active / dot-progress / dot-done -->
+        <span class="dot dot-active"></span> <!-- ← EDIT dot -->
       </div>
       <div class="card-title">IoT Smart Light App</div><!-- ← EDIT -->
       <div class="card-desc">Control lighting over WiFi and Bluetooth using MQTT protocol. Built on ESP8266 with a mobile-friendly dashboard.</div><!-- ← EDIT -->
       <div class="card-actions">
-        <a class="btn-primary" href="https://github.com/dasiot/smartlight.git"><!-- ← EDIT link -->
-          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          Source Code
-        </a>
-        <a class="btn-secondary" href="IDE.html">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          Open IDE
-        </a>
+        <span class="btn-primary">
+          <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          View Details
+        </span>
+        <span class="view-hint">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          click card to open
+        </span>
       </div>
     </div>
-  </div>
+  </a>
 
   <!-- CARD ─────────────────────────────────── -->
-  <div class="card" data-img=""><!-- ← EDIT: e.g. data-img="imgs/doorlock.jpg" -->
+  <a class="card" href="projects_detail/project2.html" data-img=""><!-- ← EDIT: detail page link & image -->
     <div class="card-diagram"></div>
     <div class="card-body">
       <div class="card-meta">
@@ -197,17 +201,17 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
       <div class="card-title">Smart Door Lock</div>
       <div class="card-desc">Keypad and BLE-based door lock using ESP32. Unlock via PIN or mobile app over Bluetooth. Servo-controlled deadbolt mechanism.</div>
       <div class="card-actions">
-        <a class="btn-primary" href="#"><!-- ← EDIT link -->
-          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          Source Code
-        </a>
-        <a class="btn-secondary" href="IDE.html">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          Open IDE
-        </a>
+        <span class="btn-primary">
+          <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          View Details
+        </span>
+        <span class="view-hint">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          click card to open
+        </span>
       </div>
     </div>
-  </div>
+  </a>
 
   <!-- ░░ PASTE NEW CARDS ABOVE THIS LINE ░░ -->
 
@@ -224,8 +228,7 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
 
 <!--
   AUTO DIAGRAM SCRIPT — do not edit
-  Reads data-img on each card.
-  If set and valid → shows your image.
+  Reads data-img on each card. If set and valid → shows your image.
   If empty or broken → shows the default symbolic IoT diagram.
 -->
 <script>
