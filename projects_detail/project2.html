@@ -64,6 +64,24 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
 code{background:#0d1117;border:1px solid #30363d;border-radius:3px;padding:1px 5px;font-size:11px;color:#00bcd4;font-family:'Courier New',monospace}
 .footer{text-align:center;margin-top:16px;font-size:11px;color:#484f58;letter-spacing:1px}
 .footer span{color:#00bcd4}
+/* ── SOURCE CODE BOX ── */
+.source-section{max-width:860px;margin:0 auto;padding:0 24px 32px}
+.source-card{background:#161b22;border:1px solid #21262d;border-radius:10px;overflow:hidden}
+.source-topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#0d1117;border-bottom:1px solid #21262d}
+.source-topbar-left{display:flex;align-items:center;gap:10px}
+.source-dots{display:flex;gap:5px}
+.source-dots span{width:11px;height:11px;border-radius:50%;display:inline-block}
+.source-title{font-size:11px;color:#8b949e;letter-spacing:1px;text-transform:uppercase}
+.source-lang{font-size:10px;padding:1px 8px;border-radius:3px;background:#1f3a4a;color:#00bcd4;border:1px solid #0d4f66;letter-spacing:0.5px}
+.copy-btn{background:transparent;border:1px solid #30363d;color:#8b949e;padding:5px 12px;border-radius:5px;font-size:11px;font-family:'Courier New',monospace;cursor:pointer;display:flex;align-items:center;gap:5px;transition:border-color 0.15s,color 0.15s}
+.copy-btn:hover{border-color:#00bcd4;color:#00bcd4}
+.copy-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+.circuit-photo-wrap{display:none;border-bottom:1px solid #21262d}
+.circuit-photo-header{display:flex;align-items:center;gap:8px;padding:8px 16px;background:#161b22;border-bottom:1px solid #21262d;font-size:11px;color:#8b949e;letter-spacing:1px;text-transform:uppercase}
+.circuit-photo-header svg{width:13px;height:13px;stroke:#00bcd4;fill:none;stroke-width:2;flex-shrink:0}
+.circuit-photo-wrap img{width:100%;max-height:360px;object-fit:contain;background:#0d1117;padding:20px;display:block}
+.source-empty{padding:32px 20px;text-align:center;color:#30363d;font-size:12px;font-family:'Courier New',monospace;line-height:1.8}
+pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:1.7;font-family:'Courier New',monospace;color:#c9d1d9;background:#0d1117;min-height:60px;white-space:pre;tab-size:2}
 </style>
 </head>
 <body>
@@ -203,9 +221,84 @@ code{background:#0d1117;border:1px solid #30363d;border-radius:3px;padding:1px 5
 
 </div>
 
+<!-- ════════════════════════ SOURCE CODE ════════════════════════ -->
+<div class="source-section" id="sourceSection">
+  <div class="source-card">
+    <div class="source-topbar">
+      <div class="source-topbar-left">
+        <div class="source-dots">
+          <span style="background:#ff5f57"></span>
+          <span style="background:#febc2e"></span>
+          <span style="background:#28c840"></span>
+        </div>
+        <span class="source-title">Source Code</span>
+        <span class="source-lang">Arduino / C++</span>
+      </div>
+      <button class="copy-btn" id="copyBtn" onclick="copyCode()">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </button>
+    </div>
+    <!-- ↓ SET src="" TO YOUR CIRCUIT DIAGRAM IMAGE PATH TO SHOW IT ↓ -->
+    <div class="circuit-photo-wrap" id="circuitPhotoWrap">
+      <div class="circuit-photo-header">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        Circuit Diagram
+      </div>
+      <img src="" alt="Circuit Diagram"
+           onload="document.getElementById('circuitPhotoWrap').style.display='block'"
+           onerror="document.getElementById('circuitPhotoWrap').style.display='none'">
+    </div>
+    <!-- ↑ SET src="" TO YOUR CIRCUIT DIAGRAM IMAGE PATH TO SHOW IT ↑ -->
+    <!-- ↓ PASTE YOUR SOURCE CODE BETWEEN THESE TAGS ↓ -->
+    <pre id="sourceCode"></pre>
+    <!-- ↑ PASTE YOUR SOURCE CODE BETWEEN THESE TAGS ↑ -->
+    <div class="source-empty" id="sourceEmpty">
+      // No source code added yet.<br>
+      // Paste your Arduino sketch between the &lt;pre&gt; tags in the HTML.
+    </div>
+  </div>
+</div>
+
 <div class="footer">
   <p>Created by <span>Sapan Das</span> &nbsp;&bull;&nbsp; IoT &amp; Embedded Systems</p>
 </div>
+
+<script>
+  // Source Code button — scroll to box if code exists, else behave as default
+  var srcBtn = document.querySelector('.src-btn');
+  var codeEl = document.getElementById('sourceCode');
+  var emptyEl = document.getElementById('sourceEmpty');
+
+  function hasCode() { return codeEl && codeEl.textContent.trim() !== ''; }
+
+  // Show empty placeholder when no code
+  if (!hasCode()) { emptyEl.style.display = 'block'; }
+
+  srcBtn.addEventListener('click', function(e) {
+    if (hasCode()) {
+      e.preventDefault();
+      document.getElementById('sourceSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    // else: href="#" stays as default (no navigation)
+  });
+
+  // Copy to clipboard
+  function copyCode() {
+    var btn = document.getElementById('copyBtn');
+    if (!hasCode()) return;
+    navigator.clipboard.writeText(codeEl.textContent).then(function() {
+      btn.textContent = '✓ Copied!';
+      btn.style.color = '#00e676';
+      btn.style.borderColor = '#00e676';
+      setTimeout(function() {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    });
+  }
+</script>
 
 </body>
 </html>
