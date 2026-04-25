@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Expires" content="0"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>ESP32 Web Flasher</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -346,12 +349,26 @@ import { ESPLoader, Transport } from "https://unpkg.com/esptool-js@0.5.7/bundle.
 // ── Constants ─────────────────────────────────────────────────────────────────
 const MAX_FLASH_LINES  = 500;
 const MAX_SERIAL_LINES = 1000;
-const BIN_FILES = [
+// Default 4-file layout — overridden per-project via projects.json "files" array
+const DEFAULT_BIN_FILES = [
   { name:"bootloader.bin", offset:0x1000  },
   { name:"partitions.bin", offset:0x8000  },
   { name:"boot_app0.bin",  offset:0xE000  },
   { name:"firmware.bin",   offset:0x10000 },
 ];
+
+// Return the file list for the active project
+// projects.json can specify: "files": [{"name":"foo.bin","offset":"0x0"}]
+// or leave blank to use DEFAULT_BIN_FILES
+function getProjectFiles(p) {
+  if (p.files && p.files.length) {
+    return p.files.map(f => ({
+      name:   f.name,
+      offset: typeof f.offset === "string" ? parseInt(f.offset, 16) : f.offset,
+    }));
+  }
+  return DEFAULT_BIN_FILES;
+}
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let projects      = [];
@@ -390,7 +407,7 @@ window.addEventListener("load", async () => {
 // ── Load projects.json ────────────────────────────────────────────────────────
 async function loadProjects() {
   try {
-    const r = await fetch("projects.json");
+    const r = await fetch("projects.json?v=" + Date.now());
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
     projects = data.projects || [];
@@ -481,11 +498,12 @@ async function activateProject(p) {
 
 async function checkProjectFiles(p) {
   let allOk = true;
-  flog(`Checking firmware/${p.folder}/`, "dim");
-  for (const f of BIN_FILES) {
+  const files = getProjectFiles(p);
+  flog(`Checking firmware/${p.folder}/  (${files.length} file${files.length>1?"s":""})`, "dim");
+  for (const f of files) {
     const path = `firmware/${p.folder}/${f.name}`;
     try {
-      const r = await fetch(path, { method: "HEAD" });
+      const r = await fetch(path + "?v=" + Date.now(), { method: "HEAD" });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       flog(`  ✓ ${f.name} @ 0x${f.offset.toString(16).toUpperCase()}`, "ok");
     } catch(_) {
@@ -494,7 +512,7 @@ async function checkProjectFiles(p) {
     }
   }
   if (allOk) {
-    flog(`All 4 files found — ready to flash!`, "ok");
+    flog(`All ${files.length} file(s) found — ready to flash!`, "ok");
     setBadge("flashBadge","ok","Ready");
   } else {
     flog(`Some files are missing. Add them to firmware/${p.folder}/ and refresh.`, "warn");
@@ -560,12 +578,13 @@ async function doFlash() {
     await stopMonitor();
     try{await espPort.close();}catch(_){}
 
-    // Load all 4 bin files for active project
-    flog(`Loading firmware files for: ${activeProject.name}`, "info");
+    // Load firmware files for active project
+    const projectFiles = getProjectFiles(activeProject);
+    flog(`Loading ${projectFiles.length} file(s) for: ${activeProject.name}`, "info");
     const fileArray = [];
-    for (const f of BIN_FILES) {
+    for (const f of projectFiles) {
       const path = `firmware/${activeProject.folder}/${f.name}`;
-      const r = await fetch(path);
+      const r = await fetch(path + "?v=" + Date.now());
       if (!r.ok) throw new Error(`Missing: ${path} (HTTP ${r.status})`);
       const buf = await r.arrayBuffer();
       fileArray.push({ data: abToStr(buf), address: f.offset });
@@ -592,12 +611,16 @@ async function doFlash() {
       flog("Flash erased.","ok");
     }
 
-    flog(`Flashing ${fileArray.length} files @ ${baud} baud…`,"info");
+    flog(`Flashing ${fileArray.length} file(s) @ ${baud} baud…`,"info");
     setProgress(30,"Writing…");
 
     await espLoader.writeFlash({
-      fileArray, flashSize:"keep", flashFreq:"keep", flashMode:"keep",
-      eraseAll:false, compress:true,
+      fileArray,
+      flashSize: "keep",
+      flashFreq: "keep",
+      flashMode: "keep",
+      eraseAll:  false,
+      compress:  true,
       reportProgress(idx,written,total){
         setProgress(30+Math.round(written/total*62),
           `File ${idx+1}/${fileArray.length} — ${fmt(written)}/${fmt(total)}`);
@@ -776,4 +799,4 @@ function abToStr(buf){
 }
 </script>
 </body>
-</html> 
+</html>

@@ -1,16 +1,28 @@
 {
   "projects": [
     {
-      "name": "Blink10",
-      "folder": "blink10",
+      "name": "MiniRoboeye V2.0",
+      "folder": "miniroboeyeV2",
       "password": "1234",
-      "description": "Basic LED"
+      "description": "Mini Roboeye firmware v2.0",
+      "files": [
+        { "name": "miniroboeyeV2.0.ino.bootloader.bin", "offset": "0x1000"  },
+        { "name": "miniroboeyeV2.0.ino.partitions.bin", "offset": "0x8000"  },
+        { "name": "boot_app0.bin",                      "offset": "0xE000"  },
+        { "name": "miniroboeyeV2.0.ino.bin",            "offset": "0x10000" }
+      ]
     },
     {
-      "name": "Blinkserial",
-      "folder": "Blinkserial",
-      "password": "5678",
-      "description": "blinkserial"
+      "name": "Blink LED",
+      "folder": "blink",
+      "password": "1234",
+      "description": "Basic blink example",
+      "files": [
+        { "name": "blink.ino.bootloader.bin", "offset": "0x1000"  },
+        { "name": "blink.ino.partitions.bin", "offset": "0x8000"  },
+        { "name": "boot_app0.bin",            "offset": "0xE000"  },
+        { "name": "blink.ino.bin",            "offset": "0x10000" }
+      ]
     }
   ]
 }
