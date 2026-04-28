@@ -1,10 +1,10 @@
 {
   "projects": [
     {
-      "name": "MiniRoboeye V2.0",
-      "folder": "miniroboeyeV2",
+      "name": "MiniRoboeyeblink",
+      "folder": "miniroboeye",
       "password": "1234",
-      "description": "Mini Roboeye firmware v2.0",
+      "description": "cute eye blinking animation",
       "files": [
         { "name": "miniroboeyeV2.0.ino.bootloader.bin", "offset": "0x1000"  },
         { "name": "miniroboeyeV2.0.ino.partitions.bin", "offset": "0x8000"  },
@@ -13,16 +13,42 @@
       ]
     },
     {
-      "name": "Blink LED",
-      "folder": "blink",
+      "name": "Dino game",
+      "folder": "dinogame",
       "password": "1234",
-      "description": "Basic blink example",
+      "description": "cute dino game for fun",
       "files": [
-        { "name": "blink.ino.bootloader.bin", "offset": "0x1000"  },
-        { "name": "blink.ino.partitions.bin", "offset": "0x8000"  },
-        { "name": "boot_app0.bin",            "offset": "0xE000"  },
-        { "name": "blink.ino.bin",            "offset": "0x10000" }
+        { "name": "dino.bootloader.bin", "offset": "0x1000"  },
+        { "name": "dino.partitions.bin", "offset": "0x8000"  },
+        { "name": "boot_app0.bin",       "offset": "0xE000"  },
+        { "name": "dino.ino.bin",        "offset": "0x10000" }
+      ]
+    },
+    {
+      "name": "potentiometer",
+      "folder": "potmeter",
+      "password": "1234",
+      "description": "speedometer using potentiometer",
+      "files": [
+        { "name": "pot.bootloader.bin", "offset": "0x1000"  },
+        { "name": "pot.partitions.bin", "offset": "0x8000"  },
+        { "name": "boot_app0.bin",      "offset": "0xE000"  },
+        { "name": "pot.ino.bin",        "offset": "0x10000" }
+      ]
+    },
+    {
+      "name": "spaceshooter game",
+      "folder": "space",
+      "password": "1234",
+      "description": "spaceshooter game for fun",
+      "files": [
+        { "name": "space.bootloader.bin", "offset": "0x1000"  },
+        { "name": "space.partitions.bin", "offset": "0x8000"  },
+        { "name": "boot_app0.bin",        "offset": "0xE000"  },
+        { "name": "space.ino.bin",        "offset": "0x10000" }
       ]
     }
+
+
   ]
 }

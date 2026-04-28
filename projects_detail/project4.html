@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>mini eye blink project — Details</title>
+<title>spaceshooter game project — Details</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;color:#c9d1d9;padding-bottom:60px}
@@ -133,12 +133,12 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
     <div class="hero-meta">
       <span class="tag">ESP32</span>         <!-- ← EDIT tags -->
       <span class="tag">OLED</span>
-      <span class="tag">EYE</span>
+      <span class="tag">spaceshooter</span>
       <span class="dot dot-active"></span>  <!-- ← EDIT: dot-active / dot-progress / dot-done -->
       <span class="status-label">Active</span><!-- ← EDIT: Active / In Progress / Completed -->
     </div>
-    <h1>Mini robo eye blink</h1>            <!-- ← EDIT: project name -->
-    <p>A small cute looking eye blink project with only using esp32 and a i2c oled diplay </p><!-- ← EDIT: description -->
+    <h1>space shooter game</h1>            <!-- ← EDIT: project name -->
+    <p>A fun to play space shooter game project with using esp32 </p><!-- ← EDIT: description -->
   </div>
 </div>
 
@@ -164,6 +164,8 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
       <!-- ← EDIT rows below -->
       <tr><td>ESP32<span class="qty">×1</span></td><td>Main microcontroller</td></tr>
       <tr><td>I2C oled<span class="qty">×1</span></td><td>to display output</td></tr>
+      <tr><td>potentiometer<span class="qty">×1</span></td><td>for veriable valu</td></tr>
+      <tr><td>push button<span class="qty">×1</span></td><td>binary signal</td></tr>
       <tr><td>Jumper Wires<span class="qty">×4</span></td><td>Connections on breadboard</td></tr>
       <tr><td>Breadboard<span class="qty">×1</span></td><td>Prototyping base</td></tr>
     </table>
@@ -177,10 +179,12 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
     </div>
     <ul class="wire-list">
       <!-- ← EDIT wires below -->
-      <li><span class="wire-pin">VIN</span><span class="wire-desc">ESP32 3V3 → Oled VCC</span></li>
-      <li><span class="wire-pin">GND</span><span class="wire-desc">ESP32 GND → Oled GND</span></li>
+      <li><span class="wire-pin">VIN</span><span class="wire-desc">ESP32 3V3 → Oled VCC and one end of pot</span></li>
+      <li><span class="wire-pin">GND</span><span class="wire-desc">ESP32 GND → Oled GND, other end of pot and button</span></li>
       <li><span class="wire-pin">CLK</span><span class="wire-desc">ESP32 22 → Oled SCL</span></li>
       <li><span class="wire-pin">DATA</span><span class="wire-desc">ESP32 21 → Oled SCA</span></li>
+      <li><span class="wire-pin">pot</span><span class="wire-desc">ESP32 D4 → middile of pot</span></li>
+      <li><span class="wire-pin">button</span><span class="wire-desc">ESP32 D5 → button one side</span></li>
     </ul>
   </div>
 
@@ -196,8 +200,8 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
       <li class="step"><span class="step-num">2</span><span class="step-text"><strong>IDE</strong>tap the IDE button at the top of the web page.</span></li>
       <li class="step"><span class="step-num">3</span><span class="step-text"><strong>port</strong>click request port and find cp2102 uart to bridge or similar to that.</span></li>
       <li class="step"><span class="step-num">4</span><span class="step-text"><strong>board and boudrate select</strong> select esp32 from list and boudrate to 115200</span></li>
-      <li class="step"><span class="step-num">5</span><span class="step-text"><strong>project</strong> select eye blink from project list.</span></li>
-      <li class="step"><span class="step-num">6</span><span class="step-text"><strong>passward</strong>use dasioteyeblink846 to unlock the project.</span></li>
+      <li class="step"><span class="step-num">5</span><span class="step-text"><strong>project</strong> select spaceshooter from project list.</span></li>
+      <li class="step"><span class="step-num">6</span><span class="step-text"><strong>passward</strong>use "dasiotspaceshoot072" to unlock the project.</span></li>
       <li class="step"><span class="step-num">7</span><span class="step-text"><strong>upload</strong>hit flash to upload</span></li>
       <li class="step"><span class="step-num">8</span><span class="step-text"><strong>upload error</strong>if error occurs press boot button while flashing</span></li>
       <li class="step"><span class="step-num">9</span><span class="step-text"><strong>output</strong>after finishing upload press en or reset pin once</span></li>
@@ -230,7 +234,7 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         Circuit Diagram
       </div>
-      <img src="/firmware/miniroboeye/oled.PNG" alt="Circuit Diagram"
+      <img src="/firmware/space/space.PNG" alt="Circuit Diagram"
            onload="document.getElementById('circuitPhotoWrap').style.display='block'"
            onerror="document.getElementById('circuitPhotoWrap').style.display='none'">
     </div>

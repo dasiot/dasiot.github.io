@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Door Lock — Details</title>
+<title>Dino game project — Details</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;color:#c9d1d9;padding-bottom:60px}
+
+/* ── TOP BAR ── */
 .topbar{background:#161b22;border-bottom:1px solid #21262d;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
 .back-btn{background:transparent;color:#8b949e;border:1px solid #30363d;padding:7px 16px;border-radius:6px;font-size:12px;font-family:'Courier New',monospace;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:border-color 0.15s,color 0.15s}
 .back-btn:hover{border-color:#00bcd4;color:#00bcd4}
@@ -22,39 +24,53 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
 .src-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
 .src-dot-active{background:#00c853;box-shadow:0 0 4px #00c853}
 .src-dot-none{background:#e53935;box-shadow:0 0 4px #e53935}
+
+/* ── HERO BANNER ── */
 .hero{background:#161b22;border-bottom:1px solid #21262d;padding:32px 24px}
 .hero-inner{max-width:860px;margin:0 auto}
 .hero-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .tag{font-size:10px;padding:2px 8px;border-radius:4px;background:#1f3a4a;color:#00bcd4;border:1px solid #0d4f66;letter-spacing:0.5px}
 .dot{width:7px;height:7px;border-radius:50%;display:inline-block;animation:pulse 2s ease infinite}
 .dot-active{background:#00e676}
-.dot-progress{background:#f0a500}
+.dot-progress{background:#f0a500;animation:pulse 2s ease infinite}
 .dot-done{background:#8b949e;animation:none}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .status-label{font-size:10px;color:#8b949e}
 .hero h1{font-size:22px;font-weight:500;color:#e6edf3;letter-spacing:0.5px;margin-bottom:8px}
 .hero p{font-size:13px;color:#8b949e;line-height:1.7;max-width:640px}
+
+/* ── DIAGRAM BANNER ── */
 .diagram-banner{background:#0d1117;border-bottom:1px solid #21262d;height:200px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .diagram-banner img{width:100%;height:100%;object-fit:cover}
 .diagram-banner svg{width:100%;max-width:860px;height:100%}
+
+/* ── CONTENT ── */
 .content{max-width:860px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
 @media(max-width:600px){.content{grid-template-columns:1fr}}
+
+/* ── SECTION CARD ── */
 .section{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:12px}
 .section.full{grid-column:1/-1}
 .section-header{display:flex;align-items:center;gap:10px;margin-bottom:4px}
 .section-icon{width:28px;height:28px;border-radius:6px;background:#1f3a4a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .section-icon svg{width:14px;height:14px;stroke:#00bcd4;fill:none;stroke-width:2}
 .section-title{font-size:12px;color:#00bcd4;letter-spacing:1.5px;text-transform:uppercase}
+
+/* ── COMPONENT TABLE ── */
 .comp-table{width:100%;border-collapse:collapse;font-size:12px}
 .comp-table th{text-align:left;color:#8b949e;font-weight:400;padding:6px 0;border-bottom:1px solid #21262d;font-size:11px;letter-spacing:0.5px}
 .comp-table td{padding:8px 0;border-bottom:1px solid #21262d;color:#c9d1d9;vertical-align:top}
 .comp-table td:first-child{color:#e6edf3;width:42%;padding-right:12px}
 .comp-table tr:last-child td{border-bottom:none}
 .qty{font-size:10px;padding:1px 6px;border-radius:3px;background:#1f3a4a;color:#00bcd4;border:1px solid #0d4f66;margin-left:6px;vertical-align:middle}
+
+/* ── WIRING LIST ── */
 .wire-list{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12px}
 .wire-list li{display:flex;gap:10px;align-items:flex-start;line-height:1.5}
 .wire-pin{font-size:10px;padding:1px 7px;border-radius:3px;background:#0d1117;border:1px solid #30363d;color:#00bcd4;white-space:nowrap;margin-top:1px;flex-shrink:0}
 .wire-desc{color:#8b949e}
+
+/* ── STEPS ── */
 .steps{list-style:none;display:flex;flex-direction:column;gap:0}
 .step{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid #21262d;font-size:12px;line-height:1.6}
 .steps .step:last-child{border-bottom:none}
@@ -62,8 +78,7 @@ body{background:#0d1117;min-height:100vh;font-family:'Courier New',monospace;col
 .step-text{color:#c9d1d9}
 .step-text strong{color:#e6edf3;display:block;margin-bottom:2px}
 code{background:#0d1117;border:1px solid #30363d;border-radius:3px;padding:1px 5px;font-size:11px;color:#00bcd4;font-family:'Courier New',monospace}
-.footer{text-align:center;margin-top:16px;font-size:11px;color:#484f58;letter-spacing:1px}
-.footer span{color:#00bcd4}
+
 /* ── SOURCE CODE BOX ── */
 .source-section{max-width:860px;margin:0 auto;padding:0 24px 32px}
 .source-card{background:#161b22;border:1px solid #21262d;border-radius:10px;overflow:hidden}
@@ -76,16 +91,23 @@ code{background:#0d1117;border:1px solid #30363d;border-radius:3px;padding:1px 5
 .copy-btn{background:transparent;border:1px solid #30363d;color:#8b949e;padding:5px 12px;border-radius:5px;font-size:11px;font-family:'Courier New',monospace;cursor:pointer;display:flex;align-items:center;gap:5px;transition:border-color 0.15s,color 0.15s}
 .copy-btn:hover{border-color:#00bcd4;color:#00bcd4}
 .copy-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+/* ── CIRCUIT PHOTO INSIDE SOURCE CARD ── */
 .circuit-photo-wrap{display:none;border-bottom:1px solid #21262d}
 .circuit-photo-header{display:flex;align-items:center;gap:8px;padding:8px 16px;background:#161b22;border-bottom:1px solid #21262d;font-size:11px;color:#8b949e;letter-spacing:1px;text-transform:uppercase}
 .circuit-photo-header svg{width:13px;height:13px;stroke:#00bcd4;fill:none;stroke-width:2;flex-shrink:0}
 .circuit-photo-wrap img{width:100%;max-height:360px;object-fit:contain;background:#0d1117;padding:20px;display:block}
-.source-empty{padding:32px 20px;text-align:center;color:#30363d;font-size:12px;font-family:'Courier New',monospace;line-height:1.8}
+.source-empty{padding:32px 20px;text-align:center;color:#30363d;font-size:12px;font-family:'Courier New',monospace;line-height:1.8;display:none}
+.source-empty.visible{display:block}
 pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:1.7;font-family:'Courier New',monospace;color:#c9d1d9;background:#0d1117;min-height:60px;white-space:pre;tab-size:2}
+
+/* ── FOOTER ── */
+.footer{text-align:center;margin-top:16px;font-size:11px;color:#484f58;letter-spacing:1px}
+.footer span{color:#00bcd4}
 </style>
 </head>
 <body>
 
+<!-- ════════════════════════ TOP BAR ════════════════════════ -->
 <div class="topbar">
   <a class="back-btn" href="../iot_projects_page.html">
     <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
@@ -97,7 +119,7 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
       <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
       Open IDE
     </a>
-    <a class="src-btn" href="#"><!-- ← EDIT: GitHub link. If no link yet keep href="#" -->
+    <a class="src-btn" href="#"><!-- ← EDIT: GitHub link. If no link yet, set href="#" and change src-dot-active to src-dot-none -->
       <span class="src-dot src-dot-none"></span><!-- ← EDIT: src-dot-active (green=has link) or src-dot-none (red=no link) -->
       <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
       Source Code
@@ -105,67 +127,30 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
   </div>
 </div>
 
+<!-- ════════════════════════ HERO ════════════════════════ -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-meta">
-      <span class="tag">ESP32</span>
-      <span class="tag">BLE</span>
-      <span class="tag">Servo</span>
-      <span class="tag">Keypad</span>
-      <span class="dot dot-progress"></span>
-      <span class="status-label">In Progress</span>
+      <span class="tag">ESP32</span>         <!-- ← EDIT tags -->
+      <span class="tag">OLED</span>
+      <span class="tag">Dinogame</span>
+      <span class="dot dot-active"></span>  <!-- ← EDIT: dot-active / dot-progress / dot-done -->
+      <span class="status-label">Active</span><!-- ← EDIT: Active / In Progress / Completed -->
     </div>
-    <h1>Smart Door Lock</h1>
-    <p>A BLE and keypad-based smart door lock system built on ESP32. Users can unlock via a 4-digit PIN on a physical keypad or wirelessly through a Bluetooth mobile app. A servo motor controls the deadbolt mechanism.</p>
+    <h1>Dino Game</h1>            <!-- ← EDIT: project name -->
+    <p>A satisfing cute dino game project with using esp32 and a i2c oled diplay </p><!-- ← EDIT: description -->
   </div>
 </div>
 
+<!-- ════════════════════════ DIAGRAM ════════════════════════ -->
 <!--
   DIAGRAM OPTIONS:
   A) Have an image? Replace the <svg> block below with:
-       <img src="../imgs/doorlock.jpg" alt="Circuit diagram">
-  B) No image? Leave the SVG as-is.
+       <img src="../imgs/smartlight.jpg" alt="Circuit diagram">
+  B) No image? Leave the SVG as-is — it's the symbolic fallback.
 -->
-<div class="diagram-banner">
-  <svg viewBox="0 0 860 200" xmlns="http://www.w3.org/2000/svg">
-    <rect width="860" height="200" fill="#0d1117"/>
-    <!-- ESP32 -->
-    <rect x="50" y="55" width="110" height="90" rx="6" fill="#161b22" stroke="#21262d" stroke-width="1"/>
-    <text x="105" y="97" text-anchor="middle" fill="#8b949e" font-size="11" font-family="monospace">ESP32</text>
-    <text x="105" y="112" text-anchor="middle" fill="#00bcd4" font-size="10" font-family="monospace">BLE + WiFi</text>
-    <circle cx="105" cy="55" r="5" fill="#f0a500" opacity="0.8"/>
-    <!-- Keypad -->
-    <rect x="240" y="40" width="90" height="80" rx="5" fill="#161b22" stroke="#21262d" stroke-width="1"/>
-    <text x="285" y="68" text-anchor="middle" fill="#8b949e" font-size="10" font-family="monospace">4x4</text>
-    <text x="285" y="82" text-anchor="middle" fill="#00bcd4" font-size="10" font-family="monospace">Keypad</text>
-    <rect x="252" y="90" width="10" height="10" rx="1" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.5"/>
-    <rect x="266" y="90" width="10" height="10" rx="1" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.5"/>
-    <rect x="280" y="90" width="10" height="10" rx="1" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.5"/>
-    <rect x="294" y="90" width="10" height="10" rx="1" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.5"/>
-    <!-- Servo -->
-    <rect x="420" y="65" width="90" height="70" rx="5" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.8"/>
-    <text x="465" y="97" text-anchor="middle" fill="#00bcd4" font-size="11" font-family="monospace">Servo</text>
-    <text x="465" y="112" text-anchor="middle" fill="#00bcd4" font-size="10" font-family="monospace">Motor</text>
-    <!-- Phone -->
-    <rect x="610" y="45" width="60" height="90" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <rect x="618" y="60" width="44" height="55" rx="2" fill="#0d1117"/>
-    <text x="640" y="90" text-anchor="middle" fill="#8b949e" font-size="9" font-family="monospace">BLE</text>
-    <text x="640" y="103" text-anchor="middle" fill="#8b949e" font-size="9" font-family="monospace">App</text>
-    <!-- LCD -->
-    <rect x="240" y="140" width="90" height="40" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1"/>
-    <text x="285" y="164" text-anchor="middle" fill="#8b949e" font-size="10" font-family="monospace">LCD 16x2</text>
-    <!-- Lines -->
-    <line x1="160" y1="90" x2="240" y2="80" stroke="#00bcd4" stroke-width="1" stroke-dasharray="5,4"/>
-    <line x1="160" y1="110" x2="240" y2="155" stroke="#30363d" stroke-width="1" stroke-dasharray="4,3"/>
-    <line x1="330" y1="80" x2="420" y2="100" stroke="#444" stroke-width="1" stroke-dasharray="5,4"/>
-    <line x1="105" y1="145" x2="105" y2="170" stroke="#f0a500" stroke-width="1" stroke-dasharray="4,3"/>
-    <line x1="105" y1="170" x2="610" y2="170" stroke="#f0a500" stroke-width="1" stroke-dasharray="4,3"/>
-    <line x1="610" y1="170" x2="610" y2="135" stroke="#f0a500" stroke-width="1" stroke-dasharray="4,3"/>
-    <text x="340" y="165" text-anchor="middle" fill="#30363d" font-size="8" font-family="monospace">BLE</text>
-    <text x="20" y="190" fill="#30363d" font-size="9" font-family="monospace">// Smart Door Lock System — Circuit Overview</text>
-  </svg>
-</div>
 
+<!-- ════════════════════════ CONTENT GRID ════════════════════════ -->
 <div class="content">
 
   <!-- COMPONENTS -->
@@ -176,13 +161,12 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
     </div>
     <table class="comp-table">
       <tr><th>Component</th><th>Purpose</th></tr>
-      <tr><td>ESP32 DevKit<span class="qty">×1</span></td><td>Main controller with BLE + WiFi</td></tr>
-      <tr><td>4×4 Keypad<span class="qty">×1</span></td><td>PIN entry for unlock</td></tr>
-      <tr><td>SG90 Servo Motor<span class="qty">×1</span></td><td>Controls deadbolt mechanism</td></tr>
-      <tr><td>LCD 16×2 (I2C)<span class="qty">×1</span></td><td>Status display (locked/unlocked)</td></tr>
-      <tr><td>5V Power Supply<span class="qty">×1</span></td><td>Powers ESP32 + servo</td></tr>
-      <tr><td>Buzzer<span class="qty">×1</span></td><td>Wrong PIN alert</td></tr>
-      <tr><td>Jumper Wires</td><td>Connections</td></tr>
+      <!-- ← EDIT rows below -->
+      <tr><td>ESP32<span class="qty">×1</span></td><td>Main microcontroller</td></tr>
+      <tr><td>I2C oled<span class="qty">×1</span></td><td>to display output</td></tr>
+      <tr><td>push button<span class="qty">×1</span></td><td>binary signal</td></tr>
+      <tr><td>Jumper Wires<span class="qty">×4</span></td><td>Connections on breadboard</td></tr>
+      <tr><td>Breadboard<span class="qty">×1</span></td><td>Prototyping base</td></tr>
     </table>
   </div>
 
@@ -193,12 +177,12 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
       <span class="section-title">Wiring</span>
     </div>
     <ul class="wire-list">
-      <li><span class="wire-pin">GPIO 13</span><span class="wire-desc">ESP32 → Servo signal wire (orange)</span></li>
-      <li><span class="wire-pin">GPIO 12-19</span><span class="wire-desc">ESP32 → Keypad rows &amp; columns (R1–R4, C1–C4)</span></li>
-      <li><span class="wire-pin">SDA/SCL</span><span class="wire-desc">ESP32 GPIO 21/22 → LCD I2C SDA/SCL</span></li>
-      <li><span class="wire-pin">GPIO 25</span><span class="wire-desc">ESP32 → Buzzer positive pin</span></li>
-      <li><span class="wire-pin">VIN</span><span class="wire-desc">5V → Servo VCC &amp; ESP32 VIN</span></li>
-      <li><span class="wire-pin">GND</span><span class="wire-desc">Common GND for all components</span></li>
+      <!-- ← EDIT wires below -->
+      <li><span class="wire-pin">VIN</span><span class="wire-desc">ESP32 3V3 → Oled VCC</span></li>
+      <li><span class="wire-pin">GND</span><span class="wire-desc">ESP32 GND → Oled GND and button one side</span></li>
+      <li><span class="wire-pin">CLK</span><span class="wire-desc">ESP32 22 → Oled SCL</span></li>
+      <li><span class="wire-pin">DATA</span><span class="wire-desc">ESP32 21 → Oled SCA</span></li>
+      <li><span class="wire-pin">button</span><span class="wire-desc">ESP32 D5 → button other side</span></li>
     </ul>
   </div>
 
@@ -209,13 +193,16 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
       <span class="section-title">How to Build in IDE (Arduino)</span>
     </div>
     <ol class="steps">
-      <li class="step"><span class="step-num">1</span><span class="step-text"><strong>Install Arduino IDE</strong>Download from arduino.cc. Open <code>File → Preferences</code> and add the ESP32 board URL:<br><code>https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json</code></span></li>
-      <li class="step"><span class="step-num">2</span><span class="step-text"><strong>Install ESP32 Board</strong>Go to <code>Tools → Board → Board Manager</code>, search <code>esp32</code> and install the Espressif package.</span></li>
-      <li class="step"><span class="step-num">3</span><span class="step-text"><strong>Install Required Libraries</strong>In <code>Sketch → Include Library → Manage Libraries</code> install:<br><code>Keypad</code> by Mark Stanley, <code>LiquidCrystal_I2C</code>, and <code>ESP32Servo</code>. BLE is built-in.</span></li>
-      <li class="step"><span class="step-num">4</span><span class="step-text"><strong>Set Your PIN</strong>In the code, set <code>correctPIN = "1234"</code> to your desired unlock PIN. Change <code>serviceUUID</code> if customizing the BLE service.</span></li>
-      <li class="step"><span class="step-num">5</span><span class="step-text"><strong>Select Board &amp; Port</strong>Go to <code>Tools → Board</code> and select <code>ESP32 Dev Module</code>. Select the correct port under <code>Tools → Port</code>.</span></li>
-      <li class="step"><span class="step-num">6</span><span class="step-text"><strong>Upload the Code</strong>Hold the BOOT button on the ESP32 while clicking Upload if it does not start automatically. Wait for "Done uploading."</span></li>
-      <li class="step"><span class="step-num">7</span><span class="step-text"><strong>Test Keypad &amp; BLE</strong>Enter your PIN on the keypad — the servo should rotate to unlock. For BLE, install <code>nRF Connect</code> on your phone, find the device named <code>SmartLock</code>, and send <code>1234</code> to the characteristic to unlock remotely.</span></li>
+      <!-- ← EDIT steps below -->
+      <li class="step"><span class="step-num">1</span><span class="step-text"><strong>connection</strong>connect all component as shown and plug USB to PC.</span></li>
+      <li class="step"><span class="step-num">2</span><span class="step-text"><strong>IDE</strong>tap the IDE button at the top of the web page.</span></li>
+      <li class="step"><span class="step-num">3</span><span class="step-text"><strong>port</strong>click request port and find cp2102 uart to bridge or similar to that.</span></li>
+      <li class="step"><span class="step-num">4</span><span class="step-text"><strong>board and boudrate select</strong> select esp32 from list and boudrate to 115200</span></li>
+      <li class="step"><span class="step-num">5</span><span class="step-text"><strong>project</strong> select dino game from project list.</span></li>
+      <li class="step"><span class="step-num">6</span><span class="step-text"><strong>passward</strong>use "dasiotdinogame286" to unlock the project.</span></li>
+      <li class="step"><span class="step-num">7</span><span class="step-text"><strong>upload</strong>hit flash to upload</span></li>
+      <li class="step"><span class="step-num">8</span><span class="step-text"><strong>upload error</strong>if error occurs press boot button while flashing</span></li>
+      <li class="step"><span class="step-num">9</span><span class="step-text"><strong>output</strong>after finishing upload press en or reset pin once</span></li>
     </ol>
   </div>
 
@@ -245,7 +232,7 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         Circuit Diagram
       </div>
-      <img src="" alt="Circuit Diagram"
+      <img src="/firmware/dinogame/button.PNG" alt="Circuit Diagram"
            onload="document.getElementById('circuitPhotoWrap').style.display='block'"
            onerror="document.getElementById('circuitPhotoWrap').style.display='none'">
     </div>
@@ -254,8 +241,7 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
     <pre id="sourceCode"></pre>
     <!-- ↑ PASTE YOUR SOURCE CODE BETWEEN THESE TAGS ↑ -->
     <div class="source-empty" id="sourceEmpty">
-      // No source code added yet.<br>
-      // Paste your Arduino sketch between the &lt;pre&gt; tags in the HTML.
+      // No source code added yet use IDE to upload.<br>
     </div>
   </div>
 </div>
@@ -265,22 +251,22 @@ pre#sourceCode{margin:0;padding:20px;overflow-x:auto;font-size:12px;line-height:
 </div>
 
 <script>
-  // Source Code button — scroll to box if code exists, else behave as default
+  // Source Code button — scroll to box if code exists, else follow href
   var srcBtn = document.querySelector('.src-btn');
   var codeEl = document.getElementById('sourceCode');
   var emptyEl = document.getElementById('sourceEmpty');
 
   function hasCode() { return codeEl && codeEl.textContent.trim() !== ''; }
 
-  // Show empty placeholder when no code
-  if (!hasCode()) { emptyEl.style.display = 'block'; }
+  // Show/hide empty placeholder
+  if (!hasCode()) { emptyEl.classList.add('visible'); }
 
   srcBtn.addEventListener('click', function(e) {
     if (hasCode()) {
       e.preventDefault();
       document.getElementById('sourceSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    // else: href="#" stays as default (no navigation)
+    // else: follow href to GitHub normally
   });
 
   // Copy to clipboard
