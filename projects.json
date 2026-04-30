@@ -3,7 +3,7 @@
     {
       "name": "MiniRoboeyeblink",
       "folder": "miniroboeye",
-      "password": "1234",
+      "password": "dasiot846",
       "description": "cute eye blinking animation",
       "files": [
         { "name": "miniroboeyeV2.0.ino.bootloader.bin", "offset": "0x1000"  },
@@ -15,7 +15,7 @@
     {
       "name": "Dino game",
       "folder": "dinogame",
-      "password": "1234",
+      "password": "dasiot286",
       "description": "cute dino game for fun",
       "files": [
         { "name": "dino.bootloader.bin", "offset": "0x1000"  },
@@ -27,7 +27,7 @@
     {
       "name": "potentiometer",
       "folder": "potmeter",
-      "password": "1234",
+      "password": "dasiot573",
       "description": "speedometer using potentiometer",
       "files": [
         { "name": "pot.bootloader.bin", "offset": "0x1000"  },
@@ -39,7 +39,7 @@
     {
       "name": "spaceshooter game",
       "folder": "space",
-      "password": "1234",
+      "password": "dasiot072",
       "description": "spaceshooter game for fun",
       "files": [
         { "name": "space.bootloader.bin", "offset": "0x1000"  },
