@@ -54,10 +54,10 @@
       "password": "dasiot456",
       "description": "web canvas for fun",
       "files": [
-        { "name": "ESP_OLED_WebCanvas.ino.bin", "offset": "0x1000"  },
-        { "name": "ESP_OLED_WebCanvas.ino.bin", "offset": "0x8000"  },
+        { "name": "Canvas.bootloader.bin",      "offset": "0x1000"  },
+        { "name": "Canvas.partitions.bin",      "offset": "0x8000"  },
         { "name": "boot_app0.bin",              "offset": "0xE000"  },
-        { "name": "ESP_OLED_WebCanvas.ino.bin", "offset": "0x10000" }
+        { "name": "Canvas.ino.bin",             "offset": "0x10000" }
       ]
     }
     
