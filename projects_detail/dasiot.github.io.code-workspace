@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "dasiot.github.io",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "dasiot.github.io"
+	}
+}

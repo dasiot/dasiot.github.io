@@ -1,5 +1,7 @@
 # ESP32 Web Flasher
 
+updated
+
 A browser-based tool to flash `.bin` firmware directly to ESP32 boards using the **Web Serial API** — no drivers, no desktop software needed.
 
 ---
