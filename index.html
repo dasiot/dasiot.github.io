@@ -1,73 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background:#ffffff;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sapan Das — IoT and embedded systems projects built on ESP32, OLED displays and sensors.">
 <title>Sapan Das — IoT Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+:root{
+  --ink:#0f172a;
+  --muted:#64748b;
+  --faint:#94a3b8;
+  --border:#e6eaf0;
+  --surface:#ffffff;
+  --surface-alt:#f6f8fb;
+  --cyan:#0891b2;
+  --cyan-soft:#e6f7fa;
+  --orange:#ff7a3d;
+  --green:#16a34a;
+  --amber:#f59e0b;
+  --gray-dot:#94a3b8;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#000000;min-height:100vh;font-family:'Courier New',monospace;color:#c9d1d9;padding-bottom:48px}
+html{background:#ffffff;scroll-behavior:smooth}
+body{background:transparent;min-height:100vh;font-family:var(--font-body);color:var(--ink);padding-bottom:0;overflow-x:hidden}
+
+/* ── 3D BACKGROUND CUBE ── */
+#bg-cube{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;display:block}
 
 /* ── TOP BAR ── */
-.topbar{background:#24272e;border-bottom:1px solid #2e353f;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.topbar{background:rgba(255,255,255,0.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:32px;height:32px;background:#00bcd4;border-radius:6px;display:flex;align-items:center;justify-content:center}
-.logo-icon svg{width:18px;height:18px;stroke:#0d1117;fill:none;stroke-width:2}
-.logo-text{font-size:15px;font-weight:500;color:#e6edf3;letter-spacing:0.5px}
-.logo-sub{font-size:11px;color:#8b949e;margin-top:1px}
-.ide-btn{background:#ff8514;color:#090b0f;border:none;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background 0.15s}
-.ide-btn:hover{background:#26c6da}
-.ide-btn svg{width:14px;height:14px;stroke:#0d0f13;fill:none;stroke-width:2}
+.logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan),#0e7490);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(8,145,178,0.28)}
+.logo-icon svg{width:18px;height:18px;stroke:#ffffff;fill:none;stroke-width:2}
+.logo-text{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--ink);letter-spacing:0.5px}
+.logo-sub{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);margin-top:2px;letter-spacing:0.3px}
+.ide-btn{background:var(--orange);color:#1a0e06;border:none;padding:9px 20px;border-radius:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:transform 0.15s,box-shadow 0.15s}
+.ide-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(255,122,61,0.35)}
+.ide-btn svg{width:14px;height:14px;stroke:#1a0e06;fill:none;stroke-width:2}
 
-/* ── HERO ── */
-.hero{text-align:center;padding:40px 24px 32px}
-.hero h1{font-size:26px;font-weight:500;color:#e6edf3;letter-spacing:1px}
-.hero p{font-size:13px;color:#8b949e;margin-top:8px;letter-spacing:0.3px}
-.blink{animation:blink 1s step-end infinite;color:#00bcd4}
+/* ── HERO (huge scroll banner) ── */
+.hero{position:relative;min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1631376178637-392efc9e356b?fm=jpg&q=80&w=2400&auto=format&fit=crop');background-size:cover;background-position:center;background-attachment:fixed;filter:saturate(1.05)}
+.hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg, rgba(6,12,20,0.55) 0%, rgba(6,12,20,0.35) 38%, rgba(6,12,20,0.65) 78%, #ffffff 100%)}
+.hero-content{position:relative;z-index:2;padding:0 32px 64px;max-width:980px;margin:0 auto;width:100%;color:#f5f8fb}
+.hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#7fe3f2;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:22px;height:1px;background:#7fe3f2}
+.hero h1{font-family:var(--font-display);font-size:clamp(38px,6vw,68px);font-weight:700;letter-spacing:-1px;line-height:1.02;color:#ffffff}
+.hero p.tagline{font-size:15.5px;color:#cfd9e3;margin-top:16px;max-width:520px;line-height:1.6}
+.blink{animation:blink 1s step-end infinite;color:#7fe3f2}
 @keyframes blink{50%{opacity:0}}
-.section-label{text-align:center;font-size:11px;color:#8b949e;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+
+.hero-stack{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.stack-chip{font-family:var(--font-mono);font-size:11px;color:#eaf6f9;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.22);padding:5px 12px;border-radius:999px;letter-spacing:0.3px}
+
+.scroll-cue{position:relative;z-index:2;align-self:center;margin:0 auto 22px;display:flex;flex-direction:column;align-items:center;gap:6px;color:#eaf6f9;text-decoration:none;font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;opacity:0.85}
+.scroll-cue svg{width:16px;height:16px;stroke:#eaf6f9;fill:none;stroke-width:2;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── SECTION LABEL ── */
+.section-wrap{padding:56px 24px 24px;max-width:1040px;margin:0 auto}
+.section-label{text-align:center;font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
+.section-title{text-align:center;font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--ink);margin-bottom:36px}
 
 /* ── GRID ── */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:0 24px;max-width:960px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;padding:0 24px;max-width:1040px;margin:0 auto}
 
 /* ── CARD ── */
-/* The whole card is a link */
-.card{background:#000000;border:1px solid #21262d;border-radius:10px;overflow:hidden;transition:border-color 0.2s,transform 0.15s;text-decoration:none;display:block;color:inherit;cursor:pointer}
-.card:hover{border-color:#00bcd4;transform:translateY(-2px)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.2s,transform 0.18s,box-shadow 0.2s;text-decoration:none;display:block;color:inherit;cursor:pointer;box-shadow:0 1px 2px rgba(15,23,42,0.04)}
+.card:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 18px 34px rgba(15,23,42,0.10)}
 
 /* ── DIAGRAM / IMAGE AREA ── */
-.card-diagram{background:#0d1117;border-bottom:1px solid #21262d;height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card-diagram{background:var(--surface-alt);border-bottom:1px solid var(--border);height:168px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .card-diagram img{width:100%;height:100%;object-fit:cover}
 .card-diagram svg{width:100%;height:100%}
 
 /* ── CARD BODY ── */
-.card-body{padding:16px}
-.card-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.tag{font-size:10px;padding:2px 8px;border-radius:4px;background:#eaedee;color:#030808;border:1px solid #0d4f66;letter-spacing:0.5px}
-.card-title{font-size:15px;font-weight:500;color:#e6edf3;margin-bottom:6px}
-.card-desc{font-size:12px;color:#8b949e;line-height:1.6;margin-bottom:14px}
-.card-actions{display:flex;gap:8px;flex-wrap:wrap}
+.card-body{padding:18px}
+.card-meta{display:flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.tag{font-family:var(--font-mono);font-size:10.5px;padding:3px 10px;border-radius:999px;background:var(--surface-alt);color:#334155;border:1px solid var(--border);letter-spacing:0.3px}
+.card-title{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.card-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 
 /* ── BUTTONS ── */
-.btn-primary{background:#f6f8f8;color:#0d1117;border:none;padding:6px 14px;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:background 0.15s}
-.btn-primary:hover{background:#26c6da}
+.btn-primary{background:var(--ink);color:#ffffff;border:none;padding:7px 16px;border-radius:999px;font-family:var(--font-mono);font-size:11.5px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background 0.15s}
+.card:hover .btn-primary{background:var(--cyan)}
 .btn-primary svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
-.view-hint{font-size:11px;color:#484f58;display:flex;align-items:center;gap:4px;margin-left:auto}
-.view-hint svg{width:11px;height:11px;stroke:#484f58;fill:none;stroke-width:2}
+.view-hint{font-family:var(--font-mono);font-size:10.5px;color:var(--faint);display:flex;align-items:center;gap:4px;margin-left:auto}
+.view-hint svg{width:11px;height:11px;stroke:var(--faint);fill:none;stroke-width:2}
 
 /* ── STATUS DOT ── */
 .dot{width:7px;height:7px;border-radius:50%;display:inline-block;animation:pulse 2s ease infinite;margin-left:auto}
-.dot-active{background:#00e676}
-.dot-progress{background:#f0a500}
-.dot-done{background:#8b949e;animation:none}
+.dot-active{background:var(--green)}
+.dot-progress{background:var(--amber)}
+.dot-done{background:var(--gray-dot);animation:none}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
 /* ── FOOTER ── */
-.footer{text-align:center;margin-top:48px;font-size:11px;color:#484f58;letter-spacing:1px}
-.footer span{color:#00bcd4}
+.footer{text-align:center;margin-top:64px;padding:28px 24px 40px;font-family:var(--font-mono);font-size:11px;color:var(--faint);letter-spacing:1px;border-top:1px solid var(--border)}
+.footer span{color:var(--cyan)}
+
+@media (max-width:768px){
+  .hero{min-height:74vh}
+  .hero-bg{background-attachment:scroll}
+  .hero-content{padding:0 20px 44px}
+}
 </style>
 </head>
 <body>
+
+<!-- ════════════════════════════════════════ -->
+<!--   INTERACTIVE 3D CUBE — fixed background  -->
+<!-- ════════════════════════════════════════ -->
+<canvas id="bg-cube"></canvas>
 
 <!-- ════════════════════════════════════════ -->
 <!--         TOP BAR  — do not edit          -->
@@ -75,7 +126,7 @@ body{background:#000000;min-height:100vh;font-family:'Courier New',monospace;col
 <div class="topbar">
   <div class="logo">
     <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="7" cy="10" r="1.5" fill="#0d1117"/><path d="M10 10h7"/><path d="M10 7h4"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="7" cy="10" r="1.5" fill="#0e7490"/><path d="M10 10h7"/><path d="M10 7h4"/></svg>
     </div>
     <div>
       <div class="logo-text">SAPAN DAS</div>
@@ -89,14 +140,33 @@ body{background:#000000;min-height:100vh;font-family:'Courier New',monospace;col
 </div>
 
 <!-- ════════════════════════════════════════ -->
-<!--         HERO — do not edit              -->
+<!--   HERO — huge scroll banner              -->
 <!-- ════════════════════════════════════════ -->
 <div class="hero">
-  <h1>MY PROJECTS<span class="blink">_</span></h1>
-  <p>Embedded systems &middot; IoT &middot; Electronics</p>
+  <div class="hero-bg"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Portfolio &middot; Embedded Systems</div>
+    <h1>MY PROJECTS<span class="blink">_</span></h1>
+    <p class="tagline">Small boards, sensors and a lot of soldering — a running log of what I build with ESP32, OLED displays and whatever else is on the breadboard.</p>
+    <div class="hero-stack">
+      <span class="stack-chip">ESP32</span>
+      <span class="stack-chip">I2C OLED</span>
+      <span class="stack-chip">Wi-Fi</span>
+      <span class="stack-chip">Sensors</span>
+      <span class="stack-chip">C++ / Arduino</span>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#project-grid">
+    Scroll
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
 </div>
 
-<div class="section-label">Active Projects</div>
+<div class="section-wrap">
+  <div class="section-label">Active Projects</div>
+  <div class="section-title">What's on the bench right now</div>
+</div>
 
 <!--
   DEFAULT FALLBACK DIAGRAM (hidden template — do not delete)
@@ -104,23 +174,23 @@ body{background:#000000;min-height:100vh;font-family:'Courier New',monospace;col
 -->
 <template id="default-diagram">
   <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
-    <rect width="280" height="160" fill="#0d1117"/>
-    <rect x="16" y="55" width="58" height="50" rx="5" fill="#161b22" stroke="#21262d" stroke-width="1"/>
-    <text x="45" y="79" text-anchor="middle" fill="#8b949e" font-size="9" font-family="monospace">MCU</text>
-    <text x="45" y="91" text-anchor="middle" fill="#00bcd4" font-size="8" font-family="monospace">Controller</text>
-    <circle cx="45" cy="55" r="4" fill="#00e676" opacity="0.7"/>
-    <rect x="100" y="38" width="52" height="38" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1"/>
-    <text x="126" y="60" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">Sensor</text>
-    <rect x="100" y="90" width="52" height="38" rx="4" fill="#161b22" stroke="#21262d" stroke-width="1"/>
-    <text x="126" y="113" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">Actuator</text>
-    <rect x="186" y="55" width="72" height="50" rx="6" fill="#1f3a4a" stroke="#00bcd4" stroke-width="0.8"/>
-    <text x="222" y="77" text-anchor="middle" fill="#00bcd4" font-size="9" font-family="monospace">Cloud /</text>
-    <text x="222" y="90" text-anchor="middle" fill="#00bcd4" font-size="9" font-family="monospace">App</text>
-    <line x1="74" y1="70" x2="100" y2="57" stroke="#00bcd4" stroke-width="1" stroke-dasharray="4,3"/>
-    <line x1="74" y1="90" x2="100" y2="109" stroke="#00bcd4" stroke-width="1" stroke-dasharray="4,3"/>
-    <line x1="152" y1="57" x2="186" y2="70" stroke="#444" stroke-width="1" stroke-dasharray="3,3"/>
-    <line x1="152" y1="109" x2="186" y2="90" stroke="#444" stroke-width="1" stroke-dasharray="3,3"/>
-    <text x="16" y="152" fill="#30363d" font-size="8" font-family="monospace">// IoT Embedded System</text>
+    <rect width="280" height="160" fill="#eef2f6"/>
+    <rect x="16" y="55" width="58" height="50" rx="5" fill="#ffffff" stroke="#d7dee6" stroke-width="1"/>
+    <text x="45" y="79" text-anchor="middle" fill="#475569" font-size="9" font-family="monospace">MCU</text>
+    <text x="45" y="91" text-anchor="middle" fill="#0891b2" font-size="8" font-family="monospace">Controller</text>
+    <circle cx="45" cy="55" r="4" fill="#16a34a" opacity="0.8"/>
+    <rect x="100" y="38" width="52" height="38" rx="4" fill="#ffffff" stroke="#d7dee6" stroke-width="1"/>
+    <text x="126" y="60" text-anchor="middle" fill="#475569" font-size="8" font-family="monospace">Sensor</text>
+    <rect x="100" y="90" width="52" height="38" rx="4" fill="#ffffff" stroke="#d7dee6" stroke-width="1"/>
+    <text x="126" y="113" text-anchor="middle" fill="#475569" font-size="8" font-family="monospace">Actuator</text>
+    <rect x="186" y="55" width="72" height="50" rx="6" fill="#e6f7fa" stroke="#0891b2" stroke-width="0.8"/>
+    <text x="222" y="77" text-anchor="middle" fill="#0891b2" font-size="9" font-family="monospace">Cloud /</text>
+    <text x="222" y="90" text-anchor="middle" fill="#0891b2" font-size="9" font-family="monospace">App</text>
+    <line x1="74" y1="70" x2="100" y2="57" stroke="#0891b2" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="74" y1="90" x2="100" y2="109" stroke="#0891b2" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="152" y1="57" x2="186" y2="70" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="152" y1="109" x2="186" y2="90" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="16" y="152" fill="#94a3b8" font-size="8" font-family="monospace">// IoT Embedded System</text>
   </svg>
 </template>
 
@@ -348,6 +418,84 @@ function injectDefault(area) {
   const tpl = document.getElementById('default-diagram');
   area.appendChild(tpl.content.cloneNode(true));
 }
+</script>
+
+<!-- ════════════════════════════════════════ -->
+<!--   INTERACTIVE 3D CUBE — engine           -->
+<!-- ════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  const canvas = document.getElementById('bg-cube');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.z = 11;
+
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  const size = 5.4;
+
+  // outer housing
+  const outerEdges = new THREE.EdgesGeometry(new THREE.BoxGeometry(size, size, size));
+  const outerMat = new THREE.LineBasicMaterial({ color: 0x0891b2, transparent: true, opacity: 0.24 });
+  group.add(new THREE.LineSegments(outerEdges, outerMat));
+
+  // inner die
+  const innerSize = size * 0.52;
+  const innerEdges = new THREE.EdgesGeometry(new THREE.BoxGeometry(innerSize, innerSize, innerSize));
+  const innerMat = new THREE.LineBasicMaterial({ color: 0xff7a3d, transparent: true, opacity: 0.20 });
+  group.add(new THREE.LineSegments(innerEdges, innerMat));
+
+  // sensor nodes on the outer vertices
+  const nodeGeo = new THREE.SphereGeometry(0.075, 10, 10);
+  const nodeMat = new THREE.MeshBasicMaterial({ color: 0x0891b2, transparent: true, opacity: 0.55 });
+  const half = size / 2;
+  [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]].forEach(function (v) {
+    const node = new THREE.Mesh(nodeGeo, nodeMat);
+    node.position.set(v[0] * half, v[1] * half, v[2] * half);
+    group.add(node);
+  });
+
+  group.rotation.x = 0.5;
+  group.rotation.y = 0.6;
+
+  let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0, autoX = 0.5, autoY = 0.6;
+
+  window.addEventListener('mousemove', function (e) {
+    mouseX = (e.clientX / window.innerWidth - 0.5);
+    mouseY = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  window.addEventListener('resize', function () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  if (reduceMotion) {
+    renderer.render(scene, camera);
+  } else {
+    (function animate() {
+      requestAnimationFrame(animate);
+      autoX += 0.0014;
+      autoY += 0.0020;
+      targetX += (mouseY - targetX) * 0.04;
+      targetY += (mouseX - targetY) * 0.04;
+      group.rotation.x = autoX + targetX * 0.6;
+      group.rotation.y = autoY + targetY * 0.6;
+      renderer.render(scene, camera);
+    })();
+  }
+})();
 </script>
 
 </body>
