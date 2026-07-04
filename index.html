@@ -30,11 +30,25 @@
 html{background:#ffffff;scroll-behavior:smooth}
 body{background:transparent;min-height:100vh;font-family:var(--font-body);color:var(--ink);padding-bottom:0;overflow-x:hidden}
 
-/* ── 3D BACKGROUND CUBE ── */
-#bg-cube{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;display:block}
+/* ── 3D BACKGROUND CUBE (pure CSS) ── */
+.cube-stage{position:fixed;inset:0;z-index:-1;display:flex;align-items:center;justify-content:center;pointer-events:none;overflow:hidden}
+.cube-scene{perspective:1400px;width:520px;height:520px;position:relative}
+.cube3d{position:absolute;inset:0;margin:auto;width:420px;height:420px;--half:210px;transform-style:preserve-3d;will-change:transform}
+.cube3d--inner{width:220px;height:220px;--half:110px}
+.face{position:absolute;width:100%;height:100%;box-sizing:border-box;border:1px solid rgba(8,145,178,0.26);background:rgba(8,145,178,0.02);transform:translateZ(var(--half))}
+.face-inner{border-color:rgba(255,122,61,0.26);background:rgba(255,122,61,0.02)}
+.face-back{transform:rotateY(180deg) translateZ(var(--half))}
+.face-right{transform:rotateY(90deg) translateZ(var(--half))}
+.face-left{transform:rotateY(-90deg) translateZ(var(--half))}
+.face-top{transform:rotateX(90deg) translateZ(var(--half))}
+.face-bottom{transform:rotateX(-90deg) translateZ(var(--half))}
+.node{position:absolute;top:50%;left:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:rgba(8,145,178,0.4);box-shadow:0 0 8px rgba(8,145,178,0.45)}
+@media (max-width:768px){
+  .cube-scene{width:360px;height:360px}
+}
 
 /* ── TOP BAR ── */
-.topbar{background:rgba(255,255,255,0.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar{background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .logo{display:flex;align-items:center;gap:10px}
 .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan),#0e7490);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(8,145,178,0.28)}
 .logo-icon svg{width:18px;height:18px;stroke:#ffffff;fill:none;stroke-width:2}
@@ -43,10 +57,13 @@ body{background:transparent;min-height:100vh;font-family:var(--font-body);color:
 .ide-btn{background:var(--orange);color:#1a0e06;border:none;padding:9px 20px;border-radius:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:transform 0.15s,box-shadow 0.15s}
 .ide-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(255,122,61,0.35)}
 .ide-btn svg{width:14px;height:14px;stroke:#1a0e06;fill:none;stroke-width:2}
+.ig-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--surface-alt);border:1px solid var(--border);color:var(--ink);text-decoration:none;transition:transform 0.15s,background 0.15s,color 0.15s}
+.ig-btn:hover{transform:translateY(-1px);background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);color:#ffffff;border-color:transparent}
+.ig-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
 
 /* ── HERO (huge scroll banner) ── */
 .hero{position:relative;min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1631376178637-392efc9e356b?fm=jpg&q=80&w=2400&auto=format&fit=crop');background-size:cover;background-position:center;background-attachment:fixed;filter:saturate(1.05)}
+.hero-bg{position:absolute;top:-12%;left:0;right:0;height:124%;background-image:url('https://images.unsplash.com/photo-1631376178637-392efc9e356b?fm=jpg&q=80&w=2400&auto=format&fit=crop');background-size:cover;background-position:center;filter:saturate(1.05);will-change:transform}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg, rgba(6,12,20,0.55) 0%, rgba(6,12,20,0.35) 38%, rgba(6,12,20,0.65) 78%, #ffffff 100%)}
 .hero-content{position:relative;z-index:2;padding:0 32px 64px;max-width:980px;margin:0 auto;width:100%;color:#f5f8fb}
 .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#7fe3f2;margin-bottom:18px;display:flex;align-items:center;gap:8px}
@@ -108,7 +125,6 @@ body{background:transparent;min-height:100vh;font-family:var(--font-body);color:
 
 @media (max-width:768px){
   .hero{min-height:74vh}
-  .hero-bg{background-attachment:scroll}
   .hero-content{padding:0 20px 44px}
 }
 </style>
@@ -116,9 +132,36 @@ body{background:transparent;min-height:100vh;font-family:var(--font-body);color:
 <body>
 
 <!-- ════════════════════════════════════════ -->
-<!--   INTERACTIVE 3D CUBE — fixed background  -->
+<!--   INTERACTIVE 3D CUBE — pure CSS         -->
 <!-- ════════════════════════════════════════ -->
-<canvas id="bg-cube"></canvas>
+<div class="cube-stage" aria-hidden="true">
+  <div class="cube-scene">
+    <div class="cube3d" id="cube3d">
+      <div class="face"></div>
+      <div class="face face-back"></div>
+      <div class="face face-right"></div>
+      <div class="face face-left"></div>
+      <div class="face face-top"></div>
+      <div class="face face-bottom"></div>
+      <div class="node" style="transform:translate3d(-210px,-210px,-210px)"></div>
+      <div class="node" style="transform:translate3d(210px,-210px,-210px)"></div>
+      <div class="node" style="transform:translate3d(210px,210px,-210px)"></div>
+      <div class="node" style="transform:translate3d(-210px,210px,-210px)"></div>
+      <div class="node" style="transform:translate3d(-210px,-210px,210px)"></div>
+      <div class="node" style="transform:translate3d(210px,-210px,210px)"></div>
+      <div class="node" style="transform:translate3d(210px,210px,210px)"></div>
+      <div class="node" style="transform:translate3d(-210px,210px,210px)"></div>
+    </div>
+    <div class="cube3d cube3d--inner" id="cube3dInner">
+      <div class="face face-inner"></div>
+      <div class="face face-back face-inner"></div>
+      <div class="face face-right face-inner"></div>
+      <div class="face face-left face-inner"></div>
+      <div class="face face-top face-inner"></div>
+      <div class="face face-bottom face-inner"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ════════════════════════════════════════ -->
 <!--         TOP BAR  — do not edit          -->
@@ -133,10 +176,15 @@ body{background:transparent;min-height:100vh;font-family:var(--font-body);color:
       <div class="logo-sub">IoT &amp; Embedded Systems</div>
     </div>
   </div>
-  <a class="ide-btn" href="IDE.html">
-    <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-    Open IDE
-  </a>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <a class="ig-btn" href="https://www.instagram.com/sapan_das15" target="_blank" rel="noopener" aria-label="Instagram"><!-- ← EDIT: put your Instagram profile link here -->
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="6"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.15" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a class="ide-btn" href="IDE.html">
+      <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Open IDE
+    </a>
+  </div>
 </div>
 
 <!-- ════════════════════════════════════════ -->
@@ -421,80 +469,74 @@ function injectDefault(area) {
 </script>
 
 <!-- ════════════════════════════════════════ -->
-<!--   INTERACTIVE 3D CUBE — engine           -->
+<!--   HERO PARALLAX — lightweight JS version  -->
 <!-- ════════════════════════════════════════ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function () {
-  const canvas = document.getElementById('bg-cube');
-  if (!canvas || typeof THREE === 'undefined') return;
+  const heroBg = document.querySelector('.hero-bg');
+  const hero = document.querySelector('.hero');
+  if (!heroBg || !hero) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+
+  let ticking = false;
+  function update() {
+    const rect = hero.getBoundingClientRect();
+    // only move it while the hero is anywhere near the viewport
+    if (rect.bottom > 0 && rect.top < window.innerHeight) {
+      const offset = window.scrollY * 0.3;
+      heroBg.style.transform = 'translate3d(0,' + offset + 'px,0)';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+  update();
+})();
+</script>
+
+<!-- ════════════════════════════════════════ -->
+<!--   INTERACTIVE 3D CUBE — engine (CSS)     -->
+<!-- ════════════════════════════════════════ -->
+<script>
+(function () {
+  const cube = document.getElementById('cube3d');
+  const inner = document.getElementById('cube3dInner');
+  if (!cube || !inner) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.z = 11;
+  let autoX = 18, autoY = -28;
+  let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
 
-  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-
-  const group = new THREE.Group();
-  scene.add(group);
-
-  const size = 5.4;
-
-  // outer housing
-  const outerEdges = new THREE.EdgesGeometry(new THREE.BoxGeometry(size, size, size));
-  const outerMat = new THREE.LineBasicMaterial({ color: 0x0891b2, transparent: true, opacity: 0.24 });
-  group.add(new THREE.LineSegments(outerEdges, outerMat));
-
-  // inner die
-  const innerSize = size * 0.52;
-  const innerEdges = new THREE.EdgesGeometry(new THREE.BoxGeometry(innerSize, innerSize, innerSize));
-  const innerMat = new THREE.LineBasicMaterial({ color: 0xff7a3d, transparent: true, opacity: 0.20 });
-  group.add(new THREE.LineSegments(innerEdges, innerMat));
-
-  // sensor nodes on the outer vertices
-  const nodeGeo = new THREE.SphereGeometry(0.075, 10, 10);
-  const nodeMat = new THREE.MeshBasicMaterial({ color: 0x0891b2, transparent: true, opacity: 0.55 });
-  const half = size / 2;
-  [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]].forEach(function (v) {
-    const node = new THREE.Mesh(nodeGeo, nodeMat);
-    node.position.set(v[0] * half, v[1] * half, v[2] * half);
-    group.add(node);
-  });
-
-  group.rotation.x = 0.5;
-  group.rotation.y = 0.6;
-
-  let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0, autoX = 0.5, autoY = 0.6;
+  function apply() {
+    const rx = autoX + targetX;
+    const ry = autoY + targetY;
+    cube.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+    inner.style.transform = 'rotateX(' + (-rx * 0.6) + 'deg) rotateY(' + (-ry * 0.6) + 'deg)';
+  }
 
   window.addEventListener('mousemove', function (e) {
-    mouseX = (e.clientX / window.innerWidth - 0.5);
-    mouseY = (e.clientY / window.innerHeight - 0.5);
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 18;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 18;
   });
 
-  window.addEventListener('resize', function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+  apply();
 
-  if (reduceMotion) {
-    renderer.render(scene, camera);
-  } else {
-    (function animate() {
-      requestAnimationFrame(animate);
-      autoX += 0.0014;
-      autoY += 0.0020;
-      targetX += (mouseY - targetX) * 0.04;
-      targetY += (mouseX - targetY) * 0.04;
-      group.rotation.x = autoX + targetX * 0.6;
-      group.rotation.y = autoY + targetY * 0.6;
-      renderer.render(scene, camera);
-    })();
-  }
+  if (reduceMotion) return;
+
+  (function loop() {
+    requestAnimationFrame(loop);
+    autoX += 0.03;
+    autoY += 0.045;
+    targetX += (mouseY - targetX) * 0.04;
+    targetY += (mouseX - targetY) * 0.04;
+    apply();
+  })();
 })();
 </script>
 
